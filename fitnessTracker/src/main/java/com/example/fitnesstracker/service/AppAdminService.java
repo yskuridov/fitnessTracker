@@ -12,7 +12,7 @@ public class AppAdminService {
     @Autowired
     private AppAdminRepository adminRepository;
 
-    public AppAdminDto createAppAdmin(AppAdminDto adminDto) {
+    public AppAdminDto createAdmin(AppAdminDto adminDto) {
         AppAdmin admin = AppAdmin.builder().username(adminDto.getUsername()).password(adminDto.getPassword()).type(SystemUser.UserType.Admin).build();
         adminRepository.save(admin);
         return new AppAdminDto(admin);

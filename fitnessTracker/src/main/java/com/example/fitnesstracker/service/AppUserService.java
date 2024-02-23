@@ -13,7 +13,16 @@ public class AppUserService {
     private AppUserRepository userRepository;
 
     public AppUserDto createUser(AppUserDto userDto){
-        AppUser user = AppUser.builder().username(userDto.getUsername()).password(userDto.getPassword()).type(SystemUser.UserType.User).build();
+        AppUser user = AppUser.builder().username(userDto.getUsername())
+                .password(userDto.getPassword())
+                .type(SystemUser.UserType.User)
+                .bodyType(AppUser.BodyType.valueOf(userDto.getBodyType()))
+                .age(userDto.getAge())
+                .height(userDto.getHeight())
+                .weight(userDto.getWeight())
+                .objective(AppUser.Objective.valueOf(userDto.getObjective()))
+                .build();
+
         userRepository.save(user);
         return new AppUserDto(user);
     }

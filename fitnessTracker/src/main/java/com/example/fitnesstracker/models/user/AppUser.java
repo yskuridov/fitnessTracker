@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class AppUser extends SystemUser {
     @OneToMany(mappedBy = "user")
     @ToString.Exclude

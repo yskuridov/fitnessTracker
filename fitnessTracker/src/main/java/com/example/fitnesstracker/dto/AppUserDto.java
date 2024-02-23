@@ -2,11 +2,13 @@ package com.example.fitnesstracker.dto;
 
 
 import com.example.fitnesstracker.models.user.AppUser;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AppUserDto {
     private String username;
     private String password;
@@ -17,6 +19,12 @@ public class AppUserDto {
     private String objective;
 
     public AppUserDto(AppUser user) {
-        AppUserDto.builder().username(user.getUsername()).password(user.getPassword()).age(user.getAge()).weight(user.getWeight()).height(user.getHeight()).bodyType(user.getBodyType().toString()).objective(user.getObjective().toString()).build();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.age = user.getAge();
+        this.weight = user.getWeight();
+        this.height = user.getHeight();
+        this.bodyType = user.getBodyType().toString();
+        this.objective = user.getObjective().toString();
     }
 }

@@ -38,6 +38,6 @@ public class UserController {
 
     @PostMapping("/admin")
     public ResponseEntity<AppAdminDto> createAdmin(AppAdminDto admin) {
-        return ResponseEntity.ok(adminService.createAppAdmin(admin));
+        return ResponseEntity.ok(adminService.createAdmin(admin));
     }
 }
