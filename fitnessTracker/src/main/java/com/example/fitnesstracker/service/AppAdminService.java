@@ -12,8 +12,8 @@ public class AppAdminService {
     @Autowired
     private AppAdminRepository adminRepository;
 
-    public AppAdminDto createAppAdmin(String username, String password) {
-        AppAdmin admin = AppAdmin.builder().username(username).password(password).type(SystemUser.UserType.Admin).build();
+    public AppAdminDto createAppAdmin(AppAdminDto adminDto) {
+        AppAdmin admin = AppAdmin.builder().username(adminDto.getUsername()).password(adminDto.getPassword()).type(SystemUser.UserType.Admin).build();
         adminRepository.save(admin);
         return new AppAdminDto(admin);
     }

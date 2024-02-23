@@ -12,8 +12,8 @@ public class AppUserService {
     @Autowired
     private AppUserRepository userRepository;
 
-    public AppUserDto createUser(String username, String password){
-        AppUser user = AppUser.builder().username(username).password(password).type(SystemUser.UserType.User).build();
+    public AppUserDto createUser(AppUserDto userDto){
+        AppUser user = AppUser.builder().username(userDto.getUsername()).password(userDto.getPassword()).type(SystemUser.UserType.User).build();
         userRepository.save(user);
         return new AppUserDto(user);
     }
