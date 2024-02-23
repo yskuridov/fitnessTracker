@@ -2,18 +2,16 @@ package com.example.fitnesstracker.models.user;
 
 import com.example.fitnesstracker.models.DailySummary;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Entity
 @DiscriminatorValue("User")
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
+@Data
 public class AppUser extends SystemUser {
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
@@ -21,7 +19,6 @@ public class AppUser extends SystemUser {
     private double weight;
     private double height;
     private int age;
-    private int dailyCalories;
     @Enumerated(EnumType.STRING)
     private BodyType bodyType;
     @Enumerated(EnumType.STRING)

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 
 @Entity
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @DiscriminatorColumn(name = "user_type")
 @Data
 @NoArgsConstructor
+@SuperBuilder
 public abstract class SystemUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
