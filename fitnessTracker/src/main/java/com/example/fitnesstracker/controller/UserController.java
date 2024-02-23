@@ -22,11 +22,11 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}")
-    public ResponseEntity<AppUserDto> getUserByUsername(String username) {
+    public ResponseEntity<AppUserDto> getUserByUsername(@PathVariable String username) {
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
 
-    @PutMapping("/user/update")
+    @PutMapping("/user")
     public ResponseEntity<AppUserDto> updateUser(AppUserDto updatedUser) {
         return ResponseEntity.ok(userService.updateUser(updatedUser));
     }
@@ -40,4 +40,6 @@ public class UserController {
     public ResponseEntity<AppAdminDto> createAdmin(AppAdminDto admin) {
         return ResponseEntity.ok(adminService.createAdmin(admin));
     }
+
+
 }
