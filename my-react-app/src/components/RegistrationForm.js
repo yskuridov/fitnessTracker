@@ -5,13 +5,16 @@ const RegistrationForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [userType, setUserType] = useState('');
+    const [age, setAge] = useState('');
+    const [weight, setWeight] = useState('');
+    const [height, setHeight] = useState('');
+    const [bodyType, setBodyType] = useState('');
+    const [goal, setGoal] = useState('');
 
 
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
     const confirmPasswordRef = useRef(null);
-    const userTypeRef = useRef(null);
     const showPasswordRef = useRef(null);
     const showPasswordConfirmationRef = useRef(null);
 
@@ -103,6 +106,16 @@ const RegistrationForm = () => {
         }
     }
 
+    const bodyTypeDescriptions = {
+        'ectomorphe': 'Mince, Maigre, Difficulté à développer les muscles',
+        'mesomorphe': 'Musclé, Athlétique, Développe facilement les muscles',
+        'endomorphe': 'Rond, Doux, Prend facilement du poids gras'
+    };
+
+    const handleBodyTypeChange = (e) => {
+        setBodyType(e.target.value);
+    };
+
     return (
         <div>
             <div>
@@ -133,6 +146,43 @@ const RegistrationForm = () => {
                             </div>
                             <div className="col-1 mt-2">
                                 <button onClick={showPassword} className="btn btn-success border border-secondary text-dark btn-md mt-4 p-1 w-100">Afficher</button>
+                            </div>
+                        </div>
+                        <div className="row mb-3">
+                            <div className="col">
+                                <label htmlFor="age" className="form-label">Âge</label>
+                                <input id="age" className="form-control" type="number" placeholder="Entrez votre âge" value={age} onChange={(e) => setAge(e.target.value)} />
+                            </div>
+                            <div className="col">
+                                <label htmlFor="height" className="form-label">Poids (en kg)</label>
+                                <input id="weight" className="form-control" type="number" placeholder="Entrez votre poids" value={weight} onChange={(e) => setWeight(e.target.value)} />
+                            </div>
+                            <div className="col">
+                                <label htmlFor="height" className="form-label">Taille (en cm)</label>
+                                <input id="height" className="form-control" type="number" placeholder="Entrez votre taille" value={height} onChange={(e) => setHeight(e.target.value)} />
+                            </div>
+                        </div>
+                        <div className="row mb-3">
+                            <div className="col">
+                                <label htmlFor="bodyType" className="form-label">Type de corps</label>
+                                <select className="form-select" id="bodyType" value={bodyType} onChange={handleBodyTypeChange}>
+                                    <option value="">Sélectionnez un type de corps</option>
+                                    <option value="ectomorphe">Ectomorphe</option>
+                                    <option value="mesomorphe">Mésomorphe</option>
+                                    <option value="endomorphe">Endomorphe</option>
+                                </select>
+                                {bodyType && (
+                                    <p className="text-success text-warning font">*{bodyTypeDescriptions[bodyType]}</p>
+                                )}
+                            </div>
+                            <div className="col">
+                                <label htmlFor="goal" className="form-label">Objectif</label>
+                                <select className="form-select" id="goal" value={goal} onChange={(e) => setGoal(e.target.value)}>
+                                    <option value="">Sélectionnez un objectif</option>
+                                    <option value="perte">Perte de poids</option>
+                                    <option value="maintien">Maintien du poids</option>
+                                    <option value="prise">Prise de masse</option>
+                                </select>
                             </div>
                         </div>
 
