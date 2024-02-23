@@ -20,9 +20,9 @@ public abstract class SystemUser {
     @JsonIgnore
     private String password;
     @Enumerated(EnumType.STRING)
-    private UserTypes type;
+    private UserType type;
 
-    public enum UserTypes{
+    public enum UserType{
         User,
         Admin
     }
