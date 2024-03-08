@@ -41,5 +41,14 @@ public class UserController {
         return ResponseEntity.ok(adminService.createAdmin(admin));
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<AppUserDto> login(String username, String password){
+        try{
+            return ResponseEntity.ok(userService.login(username, password));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 
 }

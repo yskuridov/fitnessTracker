@@ -7,6 +7,8 @@ import com.example.fitnesstracker.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class AppUserService {
     @Autowired
@@ -18,6 +20,7 @@ public class AppUserService {
                 .type(SystemUser.UserType.User)
                 .bodyType(AppUser.BodyType.valueOf(userDto.getBodyType()))
                 .age(userDto.getAge())
+                .gender(AppUser.Gender.valueOf(userDto.getGender()))
                 .height(userDto.getHeight())
                 .weight(userDto.getWeight())
                 .objective(AppUser.Objective.valueOf(userDto.getObjective()))
@@ -37,6 +40,7 @@ public class AppUserService {
         user.setAge(updatedUser.getAge());
         user.setWeight(updatedUser.getWeight());
         user.setHeight(updatedUser.getHeight());
+        user.setGender(AppUser.Gender.valueOf(updatedUser.getGender()));
         user.setBodyType(AppUser.BodyType.valueOf(updatedUser.getBodyType()));
         user.setObjective(AppUser.Objective.valueOf(updatedUser.getObjective()));
         userRepository.save(user);
@@ -46,6 +50,14 @@ public class AppUserService {
     public void deleteUser(String username){
         AppUser user = userRepository.findByUsername(username);
         userRepository.delete(user);
+    }
+
+    public AppUserDto login(String username, String password) throws Exception {
+        AppUser user = userRepository.findByUsername(username);
+        if(user == null || !Objects.equals(user.getPassword(), password)){
+            throw new Exception();
+        }
+        return new AppUserDto(user);
     }
 
 }
