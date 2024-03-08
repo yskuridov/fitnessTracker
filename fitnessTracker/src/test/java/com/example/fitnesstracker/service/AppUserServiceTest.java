@@ -27,7 +27,7 @@ public class AppUserServiceTest {
 
     @Test
     public void testCreateUser() {
-        AppUserDto userDto = new AppUserDto("username", "password", 25, 70.0, 180.0, "Ectomorph", "LoseWeight");
+        AppUserDto userDto = new AppUserDto("username", "password", 25, 70.0, 180.0, "Male", "Ectomorph", "LoseWeight");
         AppUser user = AppUser.builder().username(userDto.getUsername()).password(userDto.getPassword()).type(SystemUser.UserType.User).build();
 
         when(userRepository.save(any())).thenReturn(user);
@@ -63,7 +63,7 @@ public class AppUserServiceTest {
 
     @Test
     public void testUpdateUser() {
-        AppUserDto updatedUserDto = new AppUserDto("username", "password", 30, 75.0, 185.0, "Mesomorph", "GainWeight");
+        AppUserDto updatedUserDto = new AppUserDto("username", "password", 30, 75.0, 185.0, "Male", "Mesomorph", "GainWeight");
         AppUser user = new AppUser();
         user.setUsername("username");
 
