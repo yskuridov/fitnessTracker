@@ -21,6 +21,8 @@ public class AppUser extends SystemUser {
     private double height;
     private int age;
     @Enumerated(EnumType.STRING)
+    private Gender gender;
+    @Enumerated(EnumType.STRING)
     private BodyType bodyType;
     @Enumerated(EnumType.STRING)
     private Objective objective;
@@ -35,5 +37,10 @@ public class AppUser extends SystemUser {
         LoseWeight,
         MaintainWeight,
         GainWeight
+    }
+
+    public enum Gender{
+        Male,
+        Female
     }
 }

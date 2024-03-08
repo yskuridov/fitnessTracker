@@ -15,6 +15,7 @@ public class AppUserDto {
     private int age;
     private double weight;
     private double height;
+    private String gender;
     private String bodyType;
     private String objective;
 
@@ -24,6 +25,7 @@ public class AppUserDto {
         this.age = user.getAge();
         this.weight = user.getWeight();
         this.height = user.getHeight();
+        this.gender = user.getGender().toString();
         this.bodyType = user.getBodyType().toString();
         this.objective = user.getObjective().toString();
     }
