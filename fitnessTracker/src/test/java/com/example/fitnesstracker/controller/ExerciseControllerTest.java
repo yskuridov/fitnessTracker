@@ -1,8 +1,12 @@
 package com.example.fitnesstracker.controller;
 
+import com.example.fitnesstracker.dto.DailyExerciseDto;
 import com.example.fitnesstracker.dto.ExerciseDto;
+import com.example.fitnesstracker.models.DailySummary;
+import com.example.fitnesstracker.models.exercise.DailyExercise;
 import com.example.fitnesstracker.models.exercise.Exercise;
 import com.example.fitnesstracker.service.ExerciseService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -47,7 +54,39 @@ public class ExerciseControllerTest {
     }
 
     @Test
-    public void testCreateDailyExercise(){
+    public void testCreateDailyExercise() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
 
+
+        Exercise exercise = new Exercise();
+        exercise.setId(1l);
+        exercise.setDescription("Hammer curls with dumbbells");
+        exercise.setName("Hammer curls");
+        exercise.setTargetMuscle(Exercise.Muscle.Arms);
+
+        DailySummary summary = new DailySummary();
+        summary.setId(4l);
+        summary.setDate(LocalDateTime.now());
+        summary.setExercises(new ArrayList<>());
+        summary.setWaterIntake(2000);
+
+        DailyExercise dailyExercise = new DailyExercise();
+        dailyExercise.setExercise(exercise);
+        dailyExercise.setDailySummary(summary);
+        dailyExercise.setId(2l);
+        dailyExercise.setNbReps(12);
+        dailyExercise.setNbSets(3);
+        dailyExercise.setRestTime(45);
+
+        DailyExerciseDto dto = new DailyExerciseDto(dailyExercise);
+
+        String jsonContent = mapper.writeValueAsString(dto);
+
+        when(exerciseService.createDailyExercise(any())).thenReturn(dto);
+
+        mockMvc.perform(post("/dailyExercise")
+                        .contentType("application/json")
+                        .content(jsonContent))
+                .andExpect(status().isOk());
     }
 }

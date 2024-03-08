@@ -3,11 +3,13 @@ package com.example.fitnesstracker.dto;
 import com.example.fitnesstracker.models.exercise.DailyExercise;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @ToString
+@NoArgsConstructor
 public class DailyExerciseDto {
     @ToString.Exclude
     private Long id;
