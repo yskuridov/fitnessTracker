@@ -5,7 +5,6 @@ import com.example.fitnesstracker.dto.ExerciseDto;
 import com.example.fitnesstracker.models.DailySummary;
 import com.example.fitnesstracker.models.exercise.DailyExercise;
 import com.example.fitnesstracker.models.exercise.Exercise;
-import com.example.fitnesstracker.models.user.AppUser;
 import com.example.fitnesstracker.repository.DailyExerciseRepository;
 import com.example.fitnesstracker.repository.DailySummaryRepository;
 import com.example.fitnesstracker.repository.ExerciseRepository;
@@ -60,11 +59,12 @@ public class ExerciseServiceTest {
 
         when(exerciseRepository.findById(any())).thenReturn(Optional.of(exercise));
         when(dailySummaryRepository.findById(any())).thenReturn(Optional.of(summary));
+        when(dailyExerciseRepository.save(any())).thenReturn(new DailyExerciseDto(dailyExercise));
 
         DailyExerciseDto dto = exerciseService.createDailyExercise(new DailyExerciseDto(dailyExercise));
 
-        assertEquals(4l, dto.getDailySummaryId());
-        assertEquals(1l, dto.getExerciseId());
+        assertEquals(dailyExercise.getDailySummary().getId(), dto.getDailySummaryId());
+        assertEquals(dailyExercise.getExercise().getId(), dto.getExerciseId());
 
     }
 
