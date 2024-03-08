@@ -17,7 +17,7 @@ import java.util.List;
 public class DailySummary {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore

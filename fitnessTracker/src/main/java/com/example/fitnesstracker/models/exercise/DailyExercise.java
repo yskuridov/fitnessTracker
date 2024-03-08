@@ -3,11 +3,15 @@ package com.example.fitnesstracker.models.exercise;
 import com.example.fitnesstracker.models.DailySummary;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @AllArgsConstructor
+@Builder
+@NoArgsConstructor
 public class DailyExercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,5 +24,5 @@ public class DailyExercise {
     private Exercise exercise;
     private int nbSets;
     private int nbReps;
-    private double pauseBetween;
+    private double restTime;
 }

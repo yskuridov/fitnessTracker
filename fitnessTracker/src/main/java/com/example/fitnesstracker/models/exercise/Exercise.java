@@ -16,6 +16,8 @@ public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
+    private String description;
     private Muscle targetMuscle;
 
     public enum Muscle{
