@@ -14,8 +14,6 @@ class ExerciseService {
     }
 
     async searchExercises(name, numberResults) {
-        const axios = require('axios');
-
         const options = {
             method: 'GET',
             url: 'https://gym-fit.p.rapidapi.com/exercises/search',
@@ -29,7 +27,6 @@ class ExerciseService {
                 'X-RapidAPI-Host': 'gym-fit.p.rapidapi.com'
             }
         };
-
         try {
             const response = await axios.request(options);
             console.log(response.data);
