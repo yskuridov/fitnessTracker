@@ -1,6 +1,7 @@
 package com.example.fitnesstracker.service;
 
 import com.example.fitnesstracker.dto.AppUserDto;
+import com.example.fitnesstracker.dto.LoginDto;
 import com.example.fitnesstracker.models.user.AppUser;
 import com.example.fitnesstracker.repository.AppUserRepository;
 import jakarta.transaction.Transactional;
@@ -53,11 +54,13 @@ public class AppUserService {
         userRepository.delete(user);
     }
 
-    public AppUserDto login(String username, String password) throws Exception {
-        AppUser user = userRepository.findByUsername(username);
-        if(user == null || !Objects.equals(user.getPassword(), password)){
+    @Transactional
+    public AppUserDto login(LoginDto credentials) throws Exception {
+        AppUser user = userRepository.findByUsername(credentials.getUsername());
+        if(user == null || !Objects.equals(user.getPassword(), credentials.getPassword())){
             throw new Exception();
         }
+        System.out.println("LOGIN SUCCESSFUL!");
         return new AppUserDto(user);
     }
 

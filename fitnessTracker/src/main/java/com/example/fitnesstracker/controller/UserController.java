@@ -1,6 +1,7 @@
 package com.example.fitnesstracker.controller;
 
 import com.example.fitnesstracker.dto.AppUserDto;
+import com.example.fitnesstracker.dto.LoginDto;
 import com.example.fitnesstracker.service.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,9 +35,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AppUserDto> login(@PathVariable  String username, @PathVariable String password){
+    public ResponseEntity<AppUserDto> login(@RequestBody LoginDto credentials){
+        System.out.println(credentials);
         try{
-            return ResponseEntity.ok(userService.login(username, password));
+            return ResponseEntity.ok(userService.login(credentials));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
