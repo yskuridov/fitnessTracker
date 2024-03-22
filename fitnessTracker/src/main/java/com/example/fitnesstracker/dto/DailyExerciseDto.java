@@ -13,18 +13,13 @@ import lombok.ToString;
 public class DailyExerciseDto {
     @ToString.Exclude
     private Long id;
-    private Long dailySummaryId;
-    private Long exerciseId;
-    private int nbReps;
-    private int nbSets;
-    private double restTime;
+    private DailySummaryDto dailySummaryDto;
+    private ExerciseDto exerciseDto;
+
 
     public DailyExerciseDto(DailyExercise dailyExercise) {
         this.id = dailyExercise.getId();
-        this.dailySummaryId = dailyExercise.getDailySummary().getId();
-        this.exerciseId = dailyExercise.getExercise().getId();
-        this.nbReps = dailyExercise.getNbReps();
-        this.nbSets = dailyExercise.getNbSets();
-        this.restTime = dailyExercise.getRestTime();
+        this.dailySummaryDto = new DailySummaryDto(dailyExercise.getDailySummary());
+        this.exerciseDto = new ExerciseDto(dailyExercise.getExercise());
     }
 }

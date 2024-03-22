@@ -1,6 +1,7 @@
 package com.example.fitnesstracker.service;
 
 import com.example.fitnesstracker.dto.DailyExerciseDto;
+import com.example.fitnesstracker.dto.DailySummaryDto;
 import com.example.fitnesstracker.dto.ExerciseDto;
 import com.example.fitnesstracker.models.DailySummary;
 import com.example.fitnesstracker.models.exercise.DailyExercise;
@@ -12,6 +13,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,24 +26,40 @@ public class ExerciseService {
     private DailyExerciseRepository dailyExerciseRepository;
     @Autowired
     private DailySummaryRepository dailySummaryRepository;
+    @Autowired
+    private DailySummaryService dailySummaryService;
+
 
     @Transactional
-    public DailyExerciseDto createDailyExercise(DailyExerciseDto dto) throws Exception {
-        Optional<DailySummary> summary = dailySummaryRepository.findById(dto.getDailySummaryId());
-        Optional<Exercise> exercise = exerciseRepository.findById(dto.getExerciseId());
-        if(summary.isEmpty() || exercise.isEmpty()) throw new Exception();
-        DailySummary dailySummary = summary.get();
-        DailyExercise dailyExercise = DailyExercise.builder().dailySummary(dailySummary).exercise(exercise.get()).nbReps(dto.getNbReps()).nbSets(dto.getNbSets()).restTime(dto.getRestTime()).build();
-        summary.get().getExercises().add(dailyExercise);
+    public DailyExerciseDto createDailyExercise(DailyExerciseDto dto) {
+        validateEntries(dto);
+        DailySummary dailySummary = dailySummaryRepository.findByUser_UsernameAndDate(dto.getDailySummaryDto().getUsername(), LocalDateTime.parse(dto.getDailySummaryDto().getDate()));
+        Exercise exercise = exerciseRepository.findByName(dto.getExerciseDto().getName());
+        DailyExercise dailyExercise = DailyExercise.builder().dailySummary(dailySummary).exercise(exercise).build();
+        dailySummary.getExercises().add(dailyExercise);
         dailyExerciseRepository.save(dailyExercise);
         dailySummaryRepository.save(dailySummary);
         return new DailyExerciseDto(dailyExercise);
+    }
+
+    private void validateEntries(DailyExerciseDto dto){
+        DailySummary summary = dailySummaryRepository.findByUser_UsernameAndDate(dto.getDailySummaryDto().getUsername(), LocalDateTime.parse(dto.getDailySummaryDto().getDate()));
+        Optional<Exercise> exercise = exerciseRepository.findById(dto.getExerciseDto().getId());
+        if(exercise.isEmpty()) createExercise(dto.getExerciseDto());
+        if(summary == null) dailySummaryService.createDailySummary(dto.getDailySummaryDto());
     }
 
     @Transactional
     public ExerciseDto createExercise(ExerciseDto dto){
         Exercise exercise = Exercise.builder().description(dto.getDescription()).name(dto.getName()).targetMuscle(Exercise.Muscle.valueOf(dto.getTargetMuscle())).build();
         return new ExerciseDto(exerciseRepository.save(exercise));
+    }
+
+    public List<DailyExerciseDto> getExercisesByUsername(String username){
+        List<DailyExercise> dailyExercises = dailyExerciseRepository.findAllByDailySummaryUser_Username(username);
+        List<DailyExerciseDto> dtos = new ArrayList<>();
+        for(DailyExercise d : dailyExercises) dtos.add(new DailyExerciseDto(d));
+        return dtos;
     }
 
 }
