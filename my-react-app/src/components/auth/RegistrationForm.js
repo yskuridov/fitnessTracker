@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import UserService from "../service/UserService";
+import UserService from "../../service/UserService";
 
 const RegistrationForm = () => {
 

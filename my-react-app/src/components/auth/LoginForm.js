@@ -1,17 +1,18 @@
 import { useRef, useState, useEffect} from "react";
-import { useUser } from "../provider/UserProvider";
-import UserService from "../service/UserService";
+import { useUser } from "../../provider/UserProvider";
+import UserService from "../../service/UserService";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [validUsername, setValidUsername] = useState(true);
     const [validPassword, setValidPassword] = useState(true);
-
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
 
     const { loggedInUser, setLoggedInUser } = useUser();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (loggedInUser) {
@@ -23,7 +24,10 @@ const LoginForm = () => {
         e.preventDefault();
         if (validateUsername() && validatePassword()) {
             const response = await UserService.login({"username" : username, "password": password});
-            if(response != null) setLoggedInUser(response.username)
+            if(response != null){
+                setLoggedInUser(response.username)
+                navigate('/dashboard')
+            }
         }
     };
 
