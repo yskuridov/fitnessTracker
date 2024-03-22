@@ -10,5 +10,5 @@ public interface DailyExerciseRepository extends JpaRepository<DailyExercise, Lo
     @Query("SELECT exercise FROM DailyExercise exercise LEFT JOIN FETCH exercise.dailySummary WHERE exercise.dailySummary.id = :id")
     List<DailyExercise> findAllByDailySummaryId(Long id);
 
-    List<DailyExercise> findAllByDailySummaryUser_Username(String username);
+    List<DailyExercise> findAllByDailySummary_User_Username(String username);
 }

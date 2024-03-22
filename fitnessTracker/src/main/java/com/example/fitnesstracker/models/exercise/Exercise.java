@@ -17,15 +17,14 @@ public class Exercise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String description;
     private Muscle targetMuscle;
 
     public enum Muscle{
-        Back,
-        Chest,
-        Shoulders,
-        Legs,
-        Core,
-        Arms
+        back,
+        chest,
+        shoulders,
+        legs,
+        core,
+        arms
     }
 }

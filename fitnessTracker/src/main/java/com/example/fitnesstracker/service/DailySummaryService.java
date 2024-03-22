@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Service
 public class DailySummaryService {
@@ -24,6 +25,7 @@ public class DailySummaryService {
         summary.setUser(appUserRepository.findByUsername(dto.getUsername()));
         summary.setDate(LocalDateTime.parse(dto.getDate()));
         summary.setId(1L);
+        summary.setExercises(new ArrayList<>());
 
         dailySummaryRepository.save(summary);
 

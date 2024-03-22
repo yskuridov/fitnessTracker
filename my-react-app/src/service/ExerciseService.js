@@ -1,15 +1,20 @@
 import axios from "axios";
 
-const POST_EXERCISE = "http://localhost:8080/exercise";
-const POST_DAILY_EXERCISE = "http://localhost:8080/dailyExercise";
-
+const POST_EXERCISE = "http://localhost:8081/exercise";
+const POST_DAILY_EXERCISE = "http://localhost:8081/dailyExercise";
+const GET_DAILY_EXERCISES = "http://localhost:8081/dailyExercise/"
 class ExerciseService {
     async postExercise(exercise) {
         return await axios.post(POST_EXERCISE, exercise).then((response) => { return response.data });
     }
 
     async postDailyExercise(dailyExercise) {
+        console.log(dailyExercise)
         return await axios.post(POST_DAILY_EXERCISE, dailyExercise).then((response) => { return response.data });
+    }
+
+    async getDailyExercises(username){
+        return await axios.get(GET_DAILY_EXERCISES + username).then((response) => {return response.data});
     }
 
     async searchExercisesByName(name) {

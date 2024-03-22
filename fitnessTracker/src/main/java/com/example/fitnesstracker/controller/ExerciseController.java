@@ -1,7 +1,6 @@
 package com.example.fitnesstracker.controller;
 
 import com.example.fitnesstracker.dto.DailyExerciseDto;
-import com.example.fitnesstracker.dto.DailySummaryDto;
 import com.example.fitnesstracker.dto.ExerciseDto;
 import com.example.fitnesstracker.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +17,14 @@ public class ExerciseController {
     private final ExerciseService exerciseService;
 
     @PostMapping("/exercise")
-    public ResponseEntity<ExerciseDto> createExercise(ExerciseDto dto){
+    public ResponseEntity<ExerciseDto> createExercise(@RequestBody ExerciseDto dto){
         return ResponseEntity.ok(exerciseService.createExercise(dto));
     }
 
 
 
     @PostMapping("/dailyExercise")
-    public ResponseEntity<DailyExerciseDto> createDailyExercise(DailyExerciseDto dto) {
+    public ResponseEntity<DailyExerciseDto> createDailyExercise(@RequestBody DailyExerciseDto dto) {
         return ResponseEntity.ok(exerciseService.createDailyExercise(dto));
     }
 

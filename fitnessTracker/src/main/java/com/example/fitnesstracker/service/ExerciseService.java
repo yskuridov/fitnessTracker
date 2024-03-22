@@ -51,12 +51,12 @@ public class ExerciseService {
 
     @Transactional
     public ExerciseDto createExercise(ExerciseDto dto){
-        Exercise exercise = Exercise.builder().description(dto.getDescription()).name(dto.getName()).targetMuscle(Exercise.Muscle.valueOf(dto.getTargetMuscle())).build();
+        Exercise exercise = Exercise.builder().name(dto.getName()).targetMuscle(Exercise.Muscle.valueOf(dto.getTargetMuscle())).build();
         return new ExerciseDto(exerciseRepository.save(exercise));
     }
 
     public List<DailyExerciseDto> getExercisesByUsername(String username){
-        List<DailyExercise> dailyExercises = dailyExerciseRepository.findAllByDailySummaryUser_Username(username);
+        List<DailyExercise> dailyExercises = dailyExerciseRepository.findAllByDailySummary_User_Username(username);
         List<DailyExerciseDto> dtos = new ArrayList<>();
         for(DailyExercise d : dailyExercises) dtos.add(new DailyExerciseDto(d));
         return dtos;

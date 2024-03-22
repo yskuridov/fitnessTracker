@@ -26,7 +26,8 @@ const LoginForm = () => {
             const response = await UserService.login({"username" : username, "password": password});
             if(response != null){
                 setLoggedInUser(response.username)
-                navigate('/dashboard')
+                console.log(loggedInUser)
+                navigate('/exercises')
             }
         }
     };
