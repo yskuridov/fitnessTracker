@@ -6,7 +6,7 @@ import ExercisesComponent from './components/exercises/ExercisesComponent';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-dark">
       <Routes>
         <Route path={"/login"} element={<LoginForm/>}/>
         <Route path={"/register"} element={<RegistrationForm/>}/>

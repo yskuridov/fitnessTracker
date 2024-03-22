@@ -13,20 +13,20 @@ class ExerciseService {
     }
 
     async searchExercisesByName(name) {
-
         const options = {
-            method: 'GET',
-            url: 'https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises',
-            params: { name: name },
-            headers: {
-                'X-RapidAPI-Key': 'a8a8b23bcbmsh3b1927f529dc77ep18a3edjsn0798847578bf',
-                'X-RapidAPI-Host': 'exercises-by-api-ninjas.p.rapidapi.com'
-            }
+          method: 'GET',
+          url: 'https://exercisedb.p.rapidapi.com/exercises/name/' + name,
+          params: {limit: '10'},
+          headers: {
+            'X-RapidAPI-Key': 'a8a8b23bcbmsh3b1927f529dc77ep18a3edjsn0798847578bf',
+            'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
+          }
         };
-
+        console.log(options)
         try {
             const response = await axios.request(options);
             console.log(response.data);
+            return response.data;
         } catch (error) {
             console.error(error);
         }
@@ -35,20 +35,21 @@ class ExerciseService {
     async searchExercisesByMuscleGroup(muscle) {
         const options = {
             method: 'GET',
-            url: 'https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises',
-            params: { muscle: muscle },
+            url: 'https://exercisedb.p.rapidapi.com/exercises/bodyPart/' + muscle,
+            params: {limit: '10'},
             headers: {
-                'X-RapidAPI-Key': 'a8a8b23bcbmsh3b1927f529dc77ep18a3edjsn0798847578bf',
-                'X-RapidAPI-Host': 'exercises-by-api-ninjas.p.rapidapi.com'
+              'X-RapidAPI-Key': 'a8a8b23bcbmsh3b1927f529dc77ep18a3edjsn0798847578bf',
+              'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
             }
-        };
-
-        try {
-            const response = await axios.request(options);
-            console.log(response.data);
-        } catch (error) {
-            console.error(error);
-        }
+          };
+          
+          try {
+              const response = await axios.request(options);
+              console.log(response.data);
+              return response.data;
+          } catch (error) {
+              console.error(error);
+          }
     }
 
 }
