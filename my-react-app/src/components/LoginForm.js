@@ -1,4 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect} from "react";
+import { useUser } from "../provider/UserProvider";
+import UserService from "../service/UserService";
 
 const LoginForm = () => {
     const [username, setUsername] = useState('');
@@ -9,11 +11,19 @@ const LoginForm = () => {
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
 
-    const onSubmit = (e) => {
+    const { loggedInUser, setLoggedInUser } = useUser();
+
+    useEffect(() => {
+        if (loggedInUser) {
+            console.log(loggedInUser);
+        }
+    }, [loggedInUser]);
+
+    const onSubmit = async(e) => {
         e.preventDefault();
         if (validateUsername() && validatePassword()) {
-            // Proceed with login logic
-            console.log("Login successful");
+            const response = await UserService.login({"username" : username, "password": password});
+            if(response != null) setLoggedInUser(response.username)
         }
     };
 

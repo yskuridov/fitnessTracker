@@ -16,7 +16,7 @@ class ExerciseService {
     async searchExercises(name, numberResults) {
         const options = {
             method: 'GET',
-            url: 'https://gym-fit.p.rapidapi.com/exercises/search',
+            url: 'https://gym-fit.p.rapidapi.com/exercises/search/' + name,
             params: {
                 number: numberResults,
                 offset: '0',

@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import UserService from "../service/UserService";
 
 const RegistrationForm = () => {
 
@@ -6,6 +7,7 @@ const RegistrationForm = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [age, setAge] = useState('');
+    const [gender, setGender] = useState('Male');
     const [weight, setWeight] = useState('');
     const [height, setHeight] = useState('');
     const [bodyType, setBodyType] = useState('');
@@ -21,19 +23,17 @@ const RegistrationForm = () => {
     const validUsername = username.match('^[a-zA-Z0-9_]{3,16}$');
     const validPassword = password.match('^(?=.*[A-Z])(.{8,20})$');
 
-    const onSubmit = (e) => {
-        e.preventDefault()
-        if (validatePasswords() && validateUsername()) {
 
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        console.log(username)
+        if (validatePasswords() && validateUsername()) {
+            console.log(await UserService.register({"username" : username, "password" : password,  "age" : age, "gender": gender, "weight": weight, "height": height, "bodyType": bodyType, "objective": goal}));
         }
     }
 
     function validateUsername() {
         let isValid = true;
-
-        if (!username) {
-            isValid = false;
-        }
 
         if (
             username.trim() === ''
@@ -44,7 +44,7 @@ const RegistrationForm = () => {
             usernameRef.current.innerHTML = '';
         }
 
-        if (username.trim() !== '' || !validUsername) {
+        if (!validUsername) {
             isValid = false;
             usernameRef.current.innerHTML = '* Le nom d\'utilisateur doit être de 3 à 16 caractères et ne peut pas avoir de signes spéciaux *'
         } else {
@@ -107,14 +107,11 @@ const RegistrationForm = () => {
     }
 
     const bodyTypeDescriptions = {
-        'ectomorphe': 'Mince, Maigre, Difficulté à développer les muscles',
-        'mesomorphe': 'Musclé, Athlétique, Développe facilement les muscles',
-        'endomorphe': 'Rond, Doux, Prend facilement du poids gras'
+        'Ectomorph': 'Mince, Maigre, Difficulté à développer les muscles',
+        'Mesomorph': 'Musclé, Athlétique, Développe facilement les muscles',
+        'Endomorph': 'Rond, Doux, Prend facilement du poids gras'
     };
 
-    const handleBodyTypeChange = (e) => {
-        setBodyType(e.target.value);
-    };
 
     return (
         <div>
@@ -165,11 +162,11 @@ const RegistrationForm = () => {
                         <div className="row mb-3">
                             <div className="col">
                                 <label htmlFor="bodyType" className="form-label">Type de corps</label>
-                                <select className="form-select" id="bodyType" value={bodyType} onChange={handleBodyTypeChange}>
+                                <select className="form-select" id="bodyType" value={bodyType} onChange={(e) => setBodyType(e.target.value)}>
                                     <option value="">Sélectionnez un type de corps</option>
-                                    <option value="ectomorphe">Ectomorphe</option>
-                                    <option value="mesomorphe">Mésomorphe</option>
-                                    <option value="endomorphe">Endomorphe</option>
+                                    <option value="Ectomorph">Ectomorphe</option>
+                                    <option value="Mesomorph">Mésomorphe</option>
+                                    <option value="Endomorph">Endomorphe</option>
                                 </select>
                                 {bodyType && (
                                     <p className="text-success text-warning font">*{bodyTypeDescriptions[bodyType]}</p>
@@ -179,9 +176,9 @@ const RegistrationForm = () => {
                                 <label htmlFor="goal" className="form-label">Objectif</label>
                                 <select className="form-select" id="goal" value={goal} onChange={(e) => setGoal(e.target.value)}>
                                     <option value="">Sélectionnez un objectif</option>
-                                    <option value="perte">Perte de poids</option>
-                                    <option value="maintien">Maintien du poids</option>
-                                    <option value="prise">Prise de masse</option>
+                                    <option value="LoseWeight">Perte de poids</option>
+                                    <option value="MaintainWeight">Maintien du poids</option>
+                                    <option value="GainWeight">Prise de masse</option>
                                 </select>
                             </div>
                         </div>

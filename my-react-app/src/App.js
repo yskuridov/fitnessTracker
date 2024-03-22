@@ -6,11 +6,6 @@ import { Routes, Route } from "react-router-dom";
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path={"/login"} element={<LoginForm />}></Route>
-        <Route path={"/register"} element={<RegistrationForm />}></Route>
-        <Route path={"/dashboard"}></Route>
-      </Routes>
       <LoginForm />
       <RegistrationForm />
     </div>
