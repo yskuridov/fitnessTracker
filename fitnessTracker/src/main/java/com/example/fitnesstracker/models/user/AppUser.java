@@ -1,22 +1,20 @@
 package com.example.fitnesstracker.models.user;
 
-import com.example.fitnesstracker.models.DailySummary;
+
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-
-import java.util.List;
 
 @Entity
-@DiscriminatorValue("User")
+@Builder
 @NoArgsConstructor
-@SuperBuilder
 @Data
-@EqualsAndHashCode(callSuper = false)
-public class AppUser extends SystemUser {
-    @OneToMany(mappedBy = "user")
-    @ToString.Exclude
-    private List<DailySummary> statistics;
+@AllArgsConstructor
+public class AppUser {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String username;
+    private String password;
     private double weight;
     private double height;
     private int age;

@@ -2,8 +2,8 @@ package com.example.fitnesstracker.service;
 
 import com.example.fitnesstracker.dto.AppUserDto;
 import com.example.fitnesstracker.models.user.AppUser;
-import com.example.fitnesstracker.models.user.SystemUser;
 import com.example.fitnesstracker.repository.AppUserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,11 @@ public class AppUserService {
     @Autowired
     private AppUserRepository userRepository;
 
+    @Transactional
     public AppUserDto createUser(AppUserDto userDto){
+        System.out.println(userDto);
         AppUser user = AppUser.builder().username(userDto.getUsername())
                 .password(userDto.getPassword())
-                .type(SystemUser.UserType.User)
                 .bodyType(AppUser.BodyType.valueOf(userDto.getBodyType()))
                 .age(userDto.getAge())
                 .gender(AppUser.Gender.valueOf(userDto.getGender()))
@@ -25,7 +26,7 @@ public class AppUserService {
                 .weight(userDto.getWeight())
                 .objective(AppUser.Objective.valueOf(userDto.getObjective()))
                 .build();
-
+        System.out.println(user);
         userRepository.save(user);
         return new AppUserDto(user);
     }

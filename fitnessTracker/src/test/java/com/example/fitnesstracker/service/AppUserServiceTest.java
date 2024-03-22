@@ -2,7 +2,6 @@ package com.example.fitnesstracker.service;
 
 import com.example.fitnesstracker.dto.AppUserDto;
 import com.example.fitnesstracker.models.user.AppUser;
-import com.example.fitnesstracker.models.user.SystemUser;
 import com.example.fitnesstracker.repository.AppUserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

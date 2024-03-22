@@ -1,8 +1,6 @@
 package com.example.fitnesstracker.controller;
 
-import com.example.fitnesstracker.dto.AppAdminDto;
 import com.example.fitnesstracker.dto.AppUserDto;
-import com.example.fitnesstracker.service.AppAdminService;
 import com.example.fitnesstracker.service.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final AppUserService userService;
-    private final AppAdminService adminService;
 
     @PostMapping("/user")
-    public ResponseEntity<AppUserDto> createUser(AppUserDto user) {
+    public ResponseEntity<AppUserDto> createUser(@RequestBody AppUserDto user) {
         return ResponseEntity.ok(userService.createUser(user));
     }
 
@@ -36,13 +33,8 @@ public class UserController {
         userService.deleteUser(username);
     }
 
-    @PostMapping("/admin")
-    public ResponseEntity<AppAdminDto> createAdmin(AppAdminDto admin) {
-        return ResponseEntity.ok(adminService.createAdmin(admin));
-    }
-
     @PostMapping("/login")
-    public ResponseEntity<AppUserDto> login(String username, String password){
+    public ResponseEntity<AppUserDto> login(@PathVariable  String username, @PathVariable String password){
         try{
             return ResponseEntity.ok(userService.login(username, password));
         } catch (Exception e) {

@@ -1,8 +1,6 @@
 package com.example.fitnesstracker.controller;
 
-import com.example.fitnesstracker.dto.AppAdminDto;
 import com.example.fitnesstracker.dto.AppUserDto;
-import com.example.fitnesstracker.service.AppAdminService;
 import com.example.fitnesstracker.service.AppUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

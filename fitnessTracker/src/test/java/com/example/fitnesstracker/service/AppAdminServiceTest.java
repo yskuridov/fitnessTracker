@@ -1,14 +1,10 @@
 package com.example.fitnesstracker.service;
 
-import com.example.fitnesstracker.dto.AppAdminDto;
-import com.example.fitnesstracker.models.user.AppAdmin;
-import com.example.fitnesstracker.repository.AppAdminRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
