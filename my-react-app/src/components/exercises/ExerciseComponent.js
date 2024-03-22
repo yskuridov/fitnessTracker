@@ -23,7 +23,7 @@ function ExerciseComponent({ name, image, targetMuscle, equipment, instructions 
     const createDailyExercise = (date) => {
         console.log(date)
         console.log("CREATED")
-        console.log(ExerciseService.postDailyExercise({"dailySummaryDto":{"username": "yegor124", "date": date}, "exerciseDto":{"id": 1, "name": name, "targetMuscle": targetMuscle}}))
+        console.log(ExerciseService.postDailyExercise({"dailySummaryDto":{"username": "yegor11111", "date": date}, "exerciseDto":{"id": 1, "name": name, "targetMuscle": targetMuscle}}))
     }
 
 

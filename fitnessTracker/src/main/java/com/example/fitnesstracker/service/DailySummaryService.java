@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DailySummaryService {
@@ -30,5 +31,12 @@ public class DailySummaryService {
         dailySummaryRepository.save(summary);
 
         return new DailySummaryDto(summary);
+    }
+
+    public List<DailySummaryDto> getSummaries(String username){
+        List<DailySummary> summaries = dailySummaryRepository.findAllByUser_Username(username);
+        List<DailySummaryDto> dtos = new ArrayList<>();
+        for(DailySummary d : summaries) dtos.add(new DailySummaryDto(d));
+        return dtos;
     }
 }
