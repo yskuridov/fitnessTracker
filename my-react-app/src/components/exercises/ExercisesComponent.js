@@ -57,7 +57,7 @@ function ExercisesComponent() {
             </Form>
             {searchWasMade && (
                 <div className="mt-5 col-10 container-fluid">
-                    <h3>Résultats</h3>
+                    <h3 className='text-success text-start'>Résultats</h3>
                     <div className="row justify-content-around">
                         {exercises.map((exercise) => (
                             <ExerciseComponent
@@ -66,6 +66,7 @@ function ExercisesComponent() {
                                 image={exercise.gifUrl}
                                 targetMuscle={exercise.bodyPart}
                                 equipment={exercise.equipment}
+                                instructions={exercise.instructions}
                             />
                         ))}
                     </div>
