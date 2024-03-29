@@ -67,6 +67,7 @@ function ExercisesComponent() {
                                 targetMuscle={exercise.bodyPart}
                                 equipment={exercise.equipment}
                                 instructions={exercise.instructions}
+                                secondaryMuscles={exercise.secondaryMuscles}
                             />
                         ))}
                     </div>

@@ -16,7 +16,9 @@ const LoginForm = () => {
 
     useEffect(() => {
         if (loggedInUser) {
+            console.log("USEEFFECT")
             console.log(loggedInUser);
+            navigate('/exercises')
         }
     }, [loggedInUser]);
 
@@ -26,8 +28,7 @@ const LoginForm = () => {
             const response = await UserService.login({"username" : username, "password": password});
             if(response != null){
                 setLoggedInUser(response.username)
-                console.log(loggedInUser)
-                navigate('/exercises')
+                console.log("ONSUBMIT" + loggedInUser)
             }
         }
     };

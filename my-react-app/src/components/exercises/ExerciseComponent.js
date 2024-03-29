@@ -3,10 +3,10 @@ import { useState } from 'react';
 import ExerciseService from '../../service/ExerciseService';
 import { useUser } from '../../provider/UserProvider';
 
-function ExerciseComponent({ name, image, targetMuscle, equipment, instructions }) {
+function ExerciseComponent({ name, image, targetMuscle, equipment, instructions,secondaryMuscles }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const { loggedInUser, setLoggedInUser } = useUser();
+    const { loggedInUser } = useUser();
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
@@ -23,14 +23,22 @@ function ExerciseComponent({ name, image, targetMuscle, equipment, instructions 
     const createDailyExercise = (date) => {
         console.log(date)
         console.log("CREATED")
-        console.log(ExerciseService.postDailyExercise({"dailySummaryDto":{"username": "yegor11111", "date": date}, "exerciseDto":{"id": 1, "name": name, "targetMuscle": targetMuscle}}))
+        console.log(loggedInUser)
+        console.log(ExerciseService.postDailyExercise({"dailySummaryDto":{"username": loggedInUser, "date": date}, "exerciseDto":{"id": 1, "name": name, "targetMuscle": targetMuscle}}))
     }
 
 
     function capitalizeFirstLetter(string) {
+        if(Array.isArray(string)){
+            let result = ""
+            for(let i = 0; i < 2; i++){
+                result += string[i].charAt(0).toUpperCase() + string[i].slice(1);
+                if (i < 1) result += ", ";
+            }
+            return result;
+        }
         console.log(loggedInUser)
         return string.charAt(0).toUpperCase() + string.slice(1);
-        
     }
 
     const getNextSevenDays = () => {
@@ -63,6 +71,7 @@ function ExerciseComponent({ name, image, targetMuscle, equipment, instructions 
                 </div>
                 <ul class="list-group list-group-flush bg-secondary text-start">
                     <li class="list-group-item">Muscle ciblé: {capitalizeFirstLetter(targetMuscle)}</li>
+                    <li class="list-group-item">Muscles secondaires: {capitalizeFirstLetter(secondaryMuscles)}</li>
                     <li class="list-group-item">Équipement: {capitalizeFirstLetter(equipment)}</li>
                 </ul>
                 <div class="card-body">
@@ -87,7 +96,7 @@ function ExerciseComponent({ name, image, targetMuscle, equipment, instructions 
                                 </ol>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={toggleModal}>Close</button>
+                                <button type="button" className="btn btn-secondary" onClick={toggleModal}>Fermer</button>
                             </div>
                         </div>
                     </div>
@@ -108,7 +117,7 @@ function ExerciseComponent({ name, image, targetMuscle, equipment, instructions 
                                 <p class="mt-3 text-success">*Si un plan n'existe pas pour la journée choisie, il sera créé</p>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" onClick={toggleAddModal}>Close</button>
+                                <button type="button" className="btn btn-secondary" onClick={toggleAddModal}>Fermer</button>
                             </div>
                         </div>
                     </div>

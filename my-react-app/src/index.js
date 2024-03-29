@@ -6,14 +6,18 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 import {UserProvider} from "./provider/UserProvider";
 import { BrowserRouter as Router } from "react-router-dom";
+import NavbarComponent from './components/NavbarComponent';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Router>
+  <div className='bg-dark'>
+    <Router>
     <UserProvider>
+      <NavbarComponent/>
       <App/>
     </UserProvider>
   </Router>
+  </div>
 );
 
 // If you want to start measuring performance in your app, pass a function

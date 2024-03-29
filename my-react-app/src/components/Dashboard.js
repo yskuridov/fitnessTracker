@@ -4,18 +4,27 @@ import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Tab from 'react-bootstrap/Tab';
 import DailySummaryService from '../service/DailySummaryService';
+import { useUser } from '../provider/UserProvider';
 
 function DashboardComponent() {
-    const [summaries, setSummaries] = useState([])
+    const [summaries, setSummaries] = useState([]);
+    const { loggedInUser } = useUser();
 
-    useEffect( () => {
-        async function fetchData(){
-            setSummaries(await DailySummaryService.getSummaries("yegor11111"));
-            console.log(summaries);
+    async function fetchData() {
+        if (loggedInUser) {
+            const fetchedSummaries = await DailySummaryService.getSummaries(loggedInUser);
+            setSummaries(fetchedSummaries);
         }
-        fetchData();
-    })
+    }
 
+    useEffect(() => {
+        fetchData();
+    }, [loggedInUser]);
+
+    function getFormattedDate(date) {
+        const formatted = date.substring(0, 10);
+        return formatted;
+    }
 
     return (
         <Tab.Container id="left-tabs" defaultActiveKey="first">
@@ -24,7 +33,7 @@ function DashboardComponent() {
                     <Nav variant="pills" className="flex-column">
                         {summaries.map(summary => (
                             <Nav.Item key={summary.date}>
-                                <Nav.Link eventKey={summary.date}>{summary.date}</Nav.Link>
+                                <Nav.Link eventKey={summary.date}>{getFormattedDate(summary.date)}</Nav.Link>
                             </Nav.Item>
                         ))}
                     </Nav>
@@ -34,7 +43,7 @@ function DashboardComponent() {
                         {summaries.map(summary => (
                             <Tab.Pane key={summary.date} eventKey={summary.date}>
                                 <h2>{summary.date}</h2>
-                                <p>{summary.date}</p>
+                                <p>{summary.username}</p>
                             </Tab.Pane>
                         ))}
                     </Tab.Content>
