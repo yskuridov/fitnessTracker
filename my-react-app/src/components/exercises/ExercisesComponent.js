@@ -4,7 +4,7 @@ import ExerciseService from '../../service/ExerciseService';
 import ExerciseComponent from './ExerciseComponent';
 
 function ExercisesComponent() {
-    const [selected, setSelected] = useState('');
+    const [selected, setSelected] = useState('name');
     const [text, setText] = useState('');
     const [searchWasMade, setSearchWasMade] = useState(false)
     const [exercises, setExercises] = useState(null)
@@ -24,7 +24,7 @@ function ExercisesComponent() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (selected === "name") setExercises(await ExerciseService.searchExercisesByName(text))
+        if (selected == "name") setExercises(await ExerciseService.searchExercisesByName(text))
         else setExercises(await ExerciseService.searchExercisesByMuscleGroup(text))
         setSearchWasMade(true)
         setText('')

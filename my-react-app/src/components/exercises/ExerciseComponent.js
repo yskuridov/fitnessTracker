@@ -7,6 +7,7 @@ import Calendar from 'react-calendar';
 function ExerciseComponent({ id, name, image, targetMuscle, equipment, instructions, secondaryMuscles }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [date, setDate] = useState(new Date());
     const { loggedInUser } = useUser();
 
     const toggleModal = () => {
@@ -41,6 +42,10 @@ function ExerciseComponent({ id, name, image, targetMuscle, equipment, instructi
 
         return days;
     };
+
+    function formatDate(string){
+        return string.toISOString().slice(0, -3);
+    }
 
     function capitalizeFirstLetter(string){
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -101,10 +106,10 @@ function ExerciseComponent({ id, name, image, targetMuscle, equipment, instructi
                             </div>
                             <div className="modal-body">
                                 <p>Veuillez choisir la journée à laquelle vous voulez ajouter cet exercice</p>
-                                {getNextSevenDays().map((date, index) => (
-                                    <a onClick={() => createDailyExercise(date.toISOString().slice(0, -3))} className="mt-1" key={index} href="#" style={{ display: 'block', marginBottom: '5px' }}>{date.toLocaleDateString()}</a>
-                                ))}
-                                <p class="mt-3 text-success">*Si un plan n'existe pas pour la journée choisie, il sera créé</p>
+                                <Calendar onChange={setDate} value={date} className="bg-secondary text-light p-3" defaultView='month' maxDate={new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)} minDate={new Date()} showNavigation={false}/>
+                                <p className="mt-3">Date choisie: {date.toISOString().slice(0, -14)}</p>
+                                <button onClick={() => createDailyExercise(date.toISOString().slice(0, -3))} className="btn btn-success btn-sm border border-dark border-2">Confirmer l'ajout</button>
+                                <p class="mt-3 mb-0 text-success">*Si un plan n'existe pas pour la journée choisie, il sera créé</p>
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" onClick={toggleAddModal}>Fermer</button>
