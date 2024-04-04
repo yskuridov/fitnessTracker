@@ -1,7 +1,6 @@
 package com.example.fitnesstracker.service;
 
 import com.example.fitnesstracker.dto.DailyExerciseDto;
-import com.example.fitnesstracker.dto.DailySummaryDto;
 import com.example.fitnesstracker.dto.ExerciseDto;
 import com.example.fitnesstracker.models.DailySummary;
 import com.example.fitnesstracker.models.exercise.DailyExercise;
@@ -32,7 +31,7 @@ public class ExerciseService {
 
     @Transactional
     public DailyExerciseDto createDailyExercise(DailyExerciseDto dto) {
-        validateEntries(dto);
+        createIfInexistent(dto);
         DailySummary dailySummary = dailySummaryRepository.findByUser_UsernameAndDate(dto.getDailySummaryDto().getUsername(), LocalDateTime.parse(dto.getDailySummaryDto().getDate()));
         Exercise exercise = exerciseRepository.findByName(dto.getExerciseDto().getName());
         DailyExercise dailyExercise = DailyExercise.builder().dailySummary(dailySummary).exercise(exercise).build();
@@ -42,7 +41,7 @@ public class ExerciseService {
         return new DailyExerciseDto(dailyExercise);
     }
 
-    private void validateEntries(DailyExerciseDto dto){
+    private void createIfInexistent(DailyExerciseDto dto){
         DailySummary summary = dailySummaryRepository.findByUser_UsernameAndDate(dto.getDailySummaryDto().getUsername(), LocalDateTime.parse(dto.getDailySummaryDto().getDate()));
         Optional<Exercise> exercise = exerciseRepository.findById(dto.getExerciseDto().getId());
         if(exercise.isEmpty()) createExercise(dto.getExerciseDto());
@@ -51,6 +50,7 @@ public class ExerciseService {
 
     @Transactional
     public ExerciseDto createExercise(ExerciseDto dto){
+        if(exerciseRepository.existsByName(dto.getName())) return new ExerciseDto(exerciseRepository.findByName(dto.getName()));
         Exercise exercise = Exercise.builder().name(dto.getName()).targetMuscle(Exercise.Muscle.valueOf(dto.getTargetMuscle())).build();
         return new ExerciseDto(exerciseRepository.save(exercise));
     }

@@ -26,5 +26,6 @@ public class DailySummary {
     private LocalDateTime date;
     @OneToMany(mappedBy = "dailySummary", cascade = CascadeType.ALL)
     private List<DailyExercise> exercises;
+    //private List<DailyMeal> meals;
     //private List<Meal> meals;
 }

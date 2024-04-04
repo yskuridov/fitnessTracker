@@ -21,7 +21,7 @@ class ExerciseService {
         const options = {
           method: 'GET',
           url: 'https://exercisedb.p.rapidapi.com/exercises/name/' + name,
-          params: {limit: '10'},
+          params: {limit: '15'},
           headers: {
             'X-RapidAPI-Key': 'a8a8b23bcbmsh3b1927f529dc77ep18a3edjsn0798847578bf',
             'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
@@ -41,7 +41,7 @@ class ExerciseService {
         const options = {
             method: 'GET',
             url: 'https://exercisedb.p.rapidapi.com/exercises/bodyPart/' + muscle,
-            params: {limit: '10'},
+            params: {limit: '15'},
             headers: {
               'X-RapidAPI-Key': 'a8a8b23bcbmsh3b1927f529dc77ep18a3edjsn0798847578bf',
               'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'

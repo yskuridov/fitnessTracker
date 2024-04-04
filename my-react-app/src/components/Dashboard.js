@@ -27,10 +27,15 @@ function DashboardComponent() {
     }
 
     return (
-        <Tab.Container id="left-tabs" defaultActiveKey="first">
+        <div>
+            <h4 className='text-light mb-3 mt-3'>Mes plans des jours</h4>
+            <Tab.Container id="left-tabs" defaultActiveKey="first">
             <Row>
                 <Col sm={3}>
                     <Nav variant="pills" className="flex-column">
+                        <Nav.Item>
+                            <Nav.Link disabled className='text-light'>Date</Nav.Link>
+                        </Nav.Item>
                         {summaries.map(summary => (
                             <Nav.Item key={summary.date}>
                                 <Nav.Link eventKey={summary.date}>{getFormattedDate(summary.date)}</Nav.Link>
@@ -38,10 +43,11 @@ function DashboardComponent() {
                         ))}
                     </Nav>
                 </Col>
-                <Col sm={9}>
+                <Col sm={9} className='mt-5'>
                     <Tab.Content className='text-light'>
                         {summaries.map(summary => (
                             <Tab.Pane key={summary.date} eventKey={summary.date}>
+                                
                                 <h2>{summary.date}</h2>
                                 <p>{summary.username}</p>
                             </Tab.Pane>
@@ -50,6 +56,8 @@ function DashboardComponent() {
                 </Col>
             </Row>
         </Tab.Container>
+        </div>
+    
     );
 }
 

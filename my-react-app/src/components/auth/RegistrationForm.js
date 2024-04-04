@@ -12,6 +12,7 @@ const RegistrationForm = () => {
     const [height, setHeight] = useState('');
     const [bodyType, setBodyType] = useState('');
     const [goal, setGoal] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
 
     const usernameRef = useRef(null);
@@ -28,7 +29,7 @@ const RegistrationForm = () => {
         e.preventDefault()
         console.log(username)
         if (validatePasswords() && validateUsername()) {
-            console.log(await UserService.register({"username" : username, "password" : password,  "age" : age, "gender": gender, "weight": weight, "height": height, "bodyType": bodyType, "objective": goal}));
+            console.log(await UserService.register({ "username": username, "password": password, "age": age, "gender": gender, "weight": weight, "height": height, "bodyType": bodyType, "objective": goal }));
         }
     }
 
@@ -93,18 +94,9 @@ const RegistrationForm = () => {
         return isValid;
     }
 
-    function showPassword() {
-        if (showPasswordRef.current.type === "password") {
-            showPasswordRef.current.type = "text";
-        } else {
-            showPasswordRef.current.type = "password";
-        }
-        if (showPasswordConfirmationRef.current.type === "password") {
-            showPasswordConfirmationRef.current.type = "text";
-        } else {
-            showPasswordConfirmationRef.current.type = "password";
-        }
-    }
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
     const bodyTypeDescriptions = {
         'Ectomorph': 'Mince, Maigre, Difficulté à développer les muscles',
@@ -121,7 +113,6 @@ const RegistrationForm = () => {
                         <div className="mb-4">
                             <h1 className="mb-0 text-success">Inscription</h1>
                         </div>
-
                         <div className="row mb-3">
                             <div className="col">
                                 <label htmlFor="username" className="form-label">Nom d'utilisateur</label>
@@ -129,20 +120,19 @@ const RegistrationForm = () => {
                                 <p ref={usernameRef} className="font px-1 text-danger"></p>
                             </div>
                         </div>
-
                         <div className="row mb-3">
                             <div className="col">
                                 <label htmlFor="password" className="form-label">Mot de passe</label>
-                                <input ref={showPasswordRef} id="password" className="form-control" type="password" placeholder="Entrez le mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                <input ref={showPasswordRef} id="password" className="form-control" type={showPassword ? "text" : "password"} placeholder="Entrez le mot de passe" value={password} onChange={(e) => setPassword(e.target.value)} />
                                 <p ref={passwordRef} className="font px-1 text-danger"></p>
+                            </div>
+                            <div className="col-1 mt-2">
+                                <button onClick={togglePasswordVisibility} type="button" className="btn btn-success border border-secondary text-dark btn-md mt-4 p-1 w-100">Afficher</button>
                             </div>
                             <div className="col">
                                 <label htmlFor="confirmPassword" className="form-label">Confirmation du mot de passe</label>
-                                <input ref={showPasswordConfirmationRef} id="confirmPassword" className="form-control" type="password" placeholder="Confirmez le mot de passe" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                                <input ref={showPasswordConfirmationRef} id="confirmPassword" className="form-control" type={showPassword ? "text" : "password"} placeholder="Confirmez le mot de passe" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                                 <p ref={confirmPasswordRef} className="font px-1 text-danger"></p>
-                            </div>
-                            <div className="col-1 mt-2">
-                                <button onClick={showPassword} className="btn btn-success border border-secondary text-dark btn-md mt-4 p-1 w-100">Afficher</button>
                             </div>
                         </div>
                         <div className="row mb-3">

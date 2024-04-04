@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, FormSelect } from 'react-bootstrap';
 import ExerciseService from '../../service/ExerciseService';
 import ExerciseComponent from './ExerciseComponent';
@@ -21,11 +21,13 @@ function ExercisesComponent() {
     const handleTextChange = (event) => {
         setText(event.target.value);
     };
-    const handleSubmit = async  (event) => {
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (selected === "name") setExercises(await ExerciseService.searchExercisesByName(text))
         else setExercises(await ExerciseService.searchExercisesByMuscleGroup(text))
         setSearchWasMade(true)
+        setText('')
     };
 
     return (
@@ -62,6 +64,7 @@ function ExercisesComponent() {
                         {exercises.map((exercise) => (
                             <ExerciseComponent
                                 key={exercise.id}
+                                id={exercise.id}
                                 name={exercise.name}
                                 image={exercise.gifUrl}
                                 targetMuscle={exercise.bodyPart}

@@ -21,8 +21,6 @@ public class ExerciseController {
         return ResponseEntity.ok(exerciseService.createExercise(dto));
     }
 
-
-
     @PostMapping("/dailyExercise")
     public ResponseEntity<DailyExerciseDto> createDailyExercise(@RequestBody DailyExerciseDto dto) {
         return ResponseEntity.ok(exerciseService.createDailyExercise(dto));

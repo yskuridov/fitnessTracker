@@ -22,7 +22,4 @@ public class DailyExercise {
     @OneToOne
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
-    private int nbSets;
-    private int nbReps;
-    private double restTime;
 }

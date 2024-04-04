@@ -1,10 +1,8 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { useUser } from '../provider/UserProvider';
 import { useNavigate } from 'react-router-dom';
 
 const NavbarComponent = () => {
-    const location = useLocation();
     const { loggedInUser } = useUser();
     const navigate = useNavigate();
 

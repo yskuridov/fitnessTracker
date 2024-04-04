@@ -2,8 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import ExerciseService from '../../service/ExerciseService';
 import { useUser } from '../../provider/UserProvider';
+import Calendar from 'react-calendar';
 
-function ExerciseComponent({ name, image, targetMuscle, equipment, instructions,secondaryMuscles }) {
+function ExerciseComponent({ id, name, image, targetMuscle, equipment, instructions, secondaryMuscles }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const { loggedInUser } = useUser();
@@ -24,22 +25,9 @@ function ExerciseComponent({ name, image, targetMuscle, equipment, instructions,
         console.log(date)
         console.log("CREATED")
         console.log(loggedInUser)
-        console.log(ExerciseService.postDailyExercise({"dailySummaryDto":{"username": loggedInUser, "date": date}, "exerciseDto":{"id": 1, "name": name, "targetMuscle": targetMuscle}}))
+        console.log(ExerciseService.postDailyExercise({"dailySummaryDto":{"username": loggedInUser, "date": date}, "exerciseDto":{"id": id, "name": name, "targetMuscle": targetMuscle}}))
     }
 
-
-    function capitalizeFirstLetter(string) {
-        if(Array.isArray(string)){
-            let result = ""
-            for(let i = 0; i < 2; i++){
-                result += string[i].charAt(0).toUpperCase() + string[i].slice(1);
-                if (i < 1) result += ", ";
-            }
-            return result;
-        }
-        console.log(loggedInUser)
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
 
     const getNextSevenDays = () => {
         const today = new Date();
@@ -54,10 +42,12 @@ function ExerciseComponent({ name, image, targetMuscle, equipment, instructions,
         return days;
     };
 
-
+    function capitalizeFirstLetter(string){
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
 
     return (
-        <div className='col-4'>
+        <div className='col-4 p-3'>
             <div className="card mb-2 p-2">
                 <img
                     src={image}
@@ -70,9 +60,9 @@ function ExerciseComponent({ name, image, targetMuscle, equipment, instructions,
                     <h6 class="card-title text-success">{capitalizeFirstLetter(name)}</h6>
                 </div>
                 <ul class="list-group list-group-flush bg-secondary text-start">
-                    <li class="list-group-item">Muscle ciblé: {capitalizeFirstLetter(targetMuscle)}</li>
-                    <li class="list-group-item">Muscles secondaires: {capitalizeFirstLetter(secondaryMuscles)}</li>
-                    <li class="list-group-item">Équipement: {capitalizeFirstLetter(equipment)}</li>
+                    <li class="list-group-item">Muscle ciblé: {targetMuscle}</li>
+                    <li class="list-group-item">Muscle secondaire: {secondaryMuscles[0] + ", " + secondaryMuscles[1]}</li>
+                    <li class="list-group-item">Équipement: {equipment}</li>
                 </ul>
                 <div class="card-body">
                     <button onClick={onAddBtnClick} className="btn btn-success btn-sm border border-dark border-2">
