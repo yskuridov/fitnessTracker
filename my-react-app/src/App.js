@@ -4,6 +4,7 @@ import LoginForm from './components/auth/LoginForm';
 import { Routes, Route } from "react-router-dom";
 import ExercisesComponent from './components/exercises/ExercisesComponent';
 import DashboardComponent from './components/Dashboard';
+import FoodsComponent from './components/food/FoodsComponent';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path={"/register"} element={<RegistrationForm/>}/>
         <Route path={"/exercises"} element={<ExercisesComponent/>}/>
         <Route path={"/dashboard"} element={<DashboardComponent/>}/>
+        <Route path={"/meals"} element={<FoodsComponent/>}/>
       </Routes>
     </div>
   );
