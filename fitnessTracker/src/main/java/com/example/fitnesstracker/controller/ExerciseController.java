@@ -3,10 +3,13 @@ package com.example.fitnesstracker.controller;
 import com.example.fitnesstracker.dto.DailyExerciseDto;
 import com.example.fitnesstracker.dto.ExerciseDto;
 import com.example.fitnesstracker.service.ExerciseService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -26,8 +29,8 @@ public class ExerciseController {
         return ResponseEntity.ok(exerciseService.createDailyExercise(dto));
     }
 
-    @GetMapping("/dailyExercise/{username}")
-    public ResponseEntity<List<DailyExerciseDto>> getDailyExercises(@PathVariable String username){
-        return ResponseEntity.ok(exerciseService.getExercisesByUsername(username));
+    @GetMapping(value = "/dailyExercise/{username}", params = "date")
+    public ResponseEntity<List<DailyExerciseDto>> getDailyExercises(@PathVariable String username, @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String date){
+        return ResponseEntity.ok(exerciseService.getDailyExercisesByUsernameAndDate(username, date));
     }
 }

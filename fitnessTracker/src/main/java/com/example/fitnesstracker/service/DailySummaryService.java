@@ -8,7 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class DailySummaryService {
         DailySummary summary = new DailySummary();
         summary.setWaterIntake(0.0);
         summary.setUser(appUserRepository.findByUsername(dto.getUsername()));
-        summary.setDate(LocalDateTime.parse(dto.getDate()));
+        summary.setDate(LocalDate.parse(dto.getDate()));
         summary.setId(1L);
         summary.setExercises(new ArrayList<>());
 

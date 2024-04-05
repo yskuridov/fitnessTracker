@@ -2,7 +2,7 @@ import axios from "axios";
 
 const POST_EXERCISE = "http://localhost:8081/exercise";
 const POST_DAILY_EXERCISE = "http://localhost:8081/dailyExercise";
-const GET_DAILY_EXERCISES = "http://localhost:8081/dailyExercise/"
+
 class ExerciseService {
     async postExercise(exercise) {
         return await axios.post(POST_EXERCISE, exercise).then((response) => { return response.data });
@@ -11,10 +11,6 @@ class ExerciseService {
     async postDailyExercise(dailyExercise) {
         console.log(dailyExercise)
         return await axios.post(POST_DAILY_EXERCISE, dailyExercise).then((response) => { return response.data });
-    }
-
-    async getDailyExercises(username){
-        return await axios.get(GET_DAILY_EXERCISES + username).then((response) => {return response.data});
     }
 
     async searchExercisesByName(name) {
@@ -57,6 +53,10 @@ class ExerciseService {
           }
     }
 
+    async getDailyExercisesByDateAndUsername(username, date){
+        console.log(date)
+        return await axios.get("http://localhost:8081/dailyExercise/" + username, {params: {date: date}}).then((response) => {return response.data});
+    }
 }
 
 export default new ExerciseService();

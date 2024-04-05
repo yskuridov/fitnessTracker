@@ -29,27 +29,13 @@ function ExerciseComponent({ id, name, image, targetMuscle, equipment, instructi
         console.log(ExerciseService.postDailyExercise({"dailySummaryDto":{"username": loggedInUser, "date": date}, "exerciseDto":{"id": id, "name": name, "targetMuscle": targetMuscle}}))
     }
 
-
-    const getNextSevenDays = () => {
-        const today = new Date();
-        const days = [];
-
-        for (let i = 0; i < 7; i++) {
-            const date = new Date(today);
-            date.setDate(today.getDate() + i);
-            days.push(date);
-        }
-
-        return days;
-    };
-
-    function formatDate(string){
-        return string.toISOString().slice(0, -3);
-    }
-
     function capitalizeFirstLetter(string){
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
+
+    function formatDate(string){
+        return string.toISOString().slice(0, -14)
+    }
 
     return (
         <div className='col-4 p-3'>
@@ -106,9 +92,9 @@ function ExerciseComponent({ id, name, image, targetMuscle, equipment, instructi
                             </div>
                             <div className="modal-body">
                                 <p>Veuillez choisir la journée à laquelle vous voulez ajouter cet exercice</p>
-                                <Calendar onChange={setDate} value={date} className="bg-secondary text-light p-3" defaultView='month' maxDate={new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)} minDate={new Date()} showNavigation={false}/>
-                                <p className="mt-3">Date choisie: {date.toISOString().slice(0, -14)}</p>
-                                <button onClick={() => createDailyExercise(date.toISOString().slice(0, -3))} className="btn btn-success btn-sm border border-dark border-2">Confirmer l'ajout</button>
+                                <Calendar onChange={setDate} value={date} className="bg-secondary text-light p-3" defaultView='month' maxDate={new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)} minDate={new Date(new Date().setHours(0, 0, 0, 0))} showNavigation={false}/>
+                                <p className="mt-3 text-secondary">Date choisie: {formatDate(date)}</p>
+                                <button onClick={() => createDailyExercise(formatDate(date))} className="btn btn-success btn-sm border border-dark border-2">Confirmer l'ajout</button>
                                 <p class="mt-3 mb-0 text-success">*Si un plan n'existe pas pour la journée choisie, il sera créé</p>
                             </div>
                             <div className="modal-footer">

@@ -33,7 +33,7 @@ function ExercisesComponent() {
     return (
         <div className="row">
             <Form className="col-10 m-auto p-3 border border-dark bg-dark text-light" onSubmit={handleSubmit}>
-                <h4>Recherche d'exercices</h4>
+                <h3 className='m-3 mb-5'>Recherche d'exercices</h3>
                 <FormSelect
                     size="sm"
                     id="type"

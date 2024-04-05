@@ -1,14 +1,13 @@
 package com.example.fitnesstracker.models;
 
 import com.example.fitnesstracker.models.exercise.DailyExercise;
-import com.example.fitnesstracker.models.exercise.Exercise;
 import com.example.fitnesstracker.models.user.AppUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -23,7 +22,7 @@ public class DailySummary {
     @JsonIgnore
     private AppUser user;
     private double waterIntake;
-    private LocalDateTime date;
+    private LocalDate date;
     @OneToMany(mappedBy = "dailySummary", cascade = CascadeType.ALL)
     private List<DailyExercise> exercises;
     //private List<DailyMeal> meals;

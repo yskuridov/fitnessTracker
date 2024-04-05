@@ -47,7 +47,6 @@ function DashboardComponent() {
                     <Tab.Content className='text-light'>
                         {summaries.map(summary => (
                             <Tab.Pane key={summary.date} eventKey={summary.date}>
-                                
                                 <h2>{summary.date}</h2>
                                 <p>{summary.username}</p>
                             </Tab.Pane>
