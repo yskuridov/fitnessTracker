@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -37,9 +38,8 @@ public class ExerciseControllerTest {
 
         Exercise exercise = new Exercise();
         exercise.setId(4l);
-        exercise.setDescription("Hammer curls with dumbbells");
         exercise.setName("Hammer curls");
-        exercise.setTargetMuscle(Exercise.Muscle.Arms);
+        exercise.setTargetMuscle(Exercise.Muscle.arms);
 
         ExerciseDto dto = new ExerciseDto(exercise);
 
@@ -60,13 +60,12 @@ public class ExerciseControllerTest {
 
         Exercise exercise = new Exercise();
         exercise.setId(1l);
-        exercise.setDescription("Hammer curls with dumbbells");
         exercise.setName("Hammer curls");
-        exercise.setTargetMuscle(Exercise.Muscle.Arms);
+        exercise.setTargetMuscle(Exercise.Muscle.arms);
 
         DailySummary summary = new DailySummary();
         summary.setId(4l);
-        summary.setDate(LocalDateTime.now());
+        summary.setDate(LocalDate.now());
         summary.setExercises(new ArrayList<>());
         summary.setWaterIntake(2000);
 
@@ -74,9 +73,6 @@ public class ExerciseControllerTest {
         dailyExercise.setExercise(exercise);
         dailyExercise.setDailySummary(summary);
         dailyExercise.setId(2l);
-        dailyExercise.setNbReps(12);
-        dailyExercise.setNbSets(3);
-        dailyExercise.setRestTime(45);
 
         DailyExerciseDto dto = new DailyExerciseDto(dailyExercise);
 

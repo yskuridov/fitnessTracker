@@ -22,8 +22,6 @@ public class UserControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private AppUserService userService;
-    @MockBean
-    private AppAdminService adminService;
 
 
     @Test
@@ -92,22 +90,5 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void testCreateAdmin() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-
-        AppAdminDto adminDto = new AppAdminDto();
-        adminDto.setUsername("admin");
-        adminDto.setPassword("password");
-
-        String jsonContent = mapper.writeValueAsString(adminDto);
-
-        when(adminService.createAdmin(adminDto)).thenReturn(adminDto);
-
-        mockMvc.perform(post("/admin")
-                .contentType("application/json")
-                .content(jsonContent))
-                .andExpect(status().isOk());
-    }
 
 }

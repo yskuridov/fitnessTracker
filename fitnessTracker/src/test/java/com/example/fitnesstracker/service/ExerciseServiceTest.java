@@ -1,10 +1,12 @@
 package com.example.fitnesstracker.service;
 
 import com.example.fitnesstracker.dto.DailyExerciseDto;
+import com.example.fitnesstracker.dto.DailySummaryDto;
 import com.example.fitnesstracker.dto.ExerciseDto;
 import com.example.fitnesstracker.models.DailySummary;
 import com.example.fitnesstracker.models.exercise.DailyExercise;
 import com.example.fitnesstracker.models.exercise.Exercise;
+import com.example.fitnesstracker.models.user.AppUser;
 import com.example.fitnesstracker.repository.DailyExerciseRepository;
 import com.example.fitnesstracker.repository.DailySummaryRepository;
 import com.example.fitnesstracker.repository.ExerciseRepository;
@@ -15,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -32,39 +34,45 @@ public class ExerciseServiceTest {
     private DailyExerciseRepository dailyExerciseRepository;
     @Mock
     private DailySummaryRepository dailySummaryRepository;
+    @Mock
+    private DailySummaryService dailySumaryService;
     @InjectMocks
     private ExerciseService exerciseService;
 
     @Test
     public void testCreateDailyExercise() throws Exception {
+        AppUser user = new AppUser();
+        user.setUsername("username");
+        user.setBodyType(AppUser.BodyType.Ectomorph);
+        user.setGender(AppUser.Gender.Male);
+        user.setObjective(AppUser.Objective.LoseWeight);
+
         Exercise exercise = new Exercise();
         exercise.setId(1l);
-        exercise.setDescription("Hammer curls with dumbbells");
         exercise.setName("Hammer curls");
-        exercise.setTargetMuscle(Exercise.Muscle.Arms);
+        exercise.setTargetMuscle(Exercise.Muscle.arms);
 
         DailySummary summary = new DailySummary();
         summary.setId(4l);
-        summary.setDate(LocalDateTime.now());
+        summary.setDate(LocalDate.now());
         summary.setExercises(new ArrayList<>());
+        summary.setUser(user);
         summary.setWaterIntake(2000);
+        summary.setExercises(new ArrayList<>());
 
         DailyExercise dailyExercise = new DailyExercise();
         dailyExercise.setExercise(exercise);
         dailyExercise.setDailySummary(summary);
         dailyExercise.setId(2l);
-        dailyExercise.setNbReps(12);
-        dailyExercise.setNbSets(3);
-        dailyExercise.setRestTime(45);
 
-        when(exerciseRepository.findById(any())).thenReturn(Optional.of(exercise));
-        when(dailySummaryRepository.findById(any())).thenReturn(Optional.of(summary));
-        when(dailyExerciseRepository.save(any())).thenReturn(new DailyExerciseDto(dailyExercise));
+        when(exerciseRepository.findByName(any())).thenReturn(exercise);
+        when(dailyExerciseRepository.save(any())).thenReturn(dailyExercise);
+        when(dailySummaryRepository.findByUser_UsernameAndDate(any(), any())).thenReturn(summary);
 
         DailyExerciseDto dto = exerciseService.createDailyExercise(new DailyExerciseDto(dailyExercise));
 
-        assertEquals(dailyExercise.getDailySummary().getId(), dto.getDailySummaryId());
-        assertEquals(dailyExercise.getExercise().getId(), dto.getExerciseId());
+        assertEquals(dailyExercise.getDailySummary().getDate(), dto.getDailySummaryDto().getDate());
+        assertEquals(dailyExercise.getExercise().getId(), dto.getExerciseDto().getId());
 
     }
 
@@ -72,9 +80,8 @@ public class ExerciseServiceTest {
     public void createExercise(){
         Exercise exercise = new Exercise();
         exercise.setId(1l);
-        exercise.setDescription("Standing shoulder press");
         exercise.setName("Shoulder press");
-        exercise.setTargetMuscle(Exercise.Muscle.Shoulders);
+        exercise.setTargetMuscle(Exercise.Muscle.shoulders);
 
         when(exerciseRepository.save(any())).thenReturn(exercise);
 
@@ -83,7 +90,6 @@ public class ExerciseServiceTest {
         assertEquals(dto.getId(), exercise.getId());
         assertEquals(dto.getName(), exercise.getName());
         assertEquals(dto.getTargetMuscle(), exercise.getTargetMuscle().toString());
-        assertEquals(dto.getDescription(), exercise.getDescription());
     }
 
 }

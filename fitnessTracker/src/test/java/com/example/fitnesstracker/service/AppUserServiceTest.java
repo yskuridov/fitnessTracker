@@ -27,7 +27,7 @@ public class AppUserServiceTest {
     @Test
     public void testCreateUser() {
         AppUserDto userDto = new AppUserDto("username", "password", 25, 70.0, 180.0, "Male", "Ectomorph", "LoseWeight");
-        AppUser user = AppUser.builder().username(userDto.getUsername()).password(userDto.getPassword()).type(SystemUser.UserType.User).build();
+        AppUser user = AppUser.builder().username(userDto.getUsername()).password(userDto.getPassword()).build();
 
         when(userRepository.save(any())).thenReturn(user);
 
@@ -48,6 +48,7 @@ public class AppUserServiceTest {
         AppUser user = new AppUser();
         user.setUsername("username");
         user.setBodyType(AppUser.BodyType.Ectomorph);
+        user.setGender(AppUser.Gender.Male);
         user.setObjective(AppUser.Objective.LoseWeight);
 
         when(userRepository.findByUsername("username")).thenReturn(user);
@@ -66,7 +67,7 @@ public class AppUserServiceTest {
         AppUser user = new AppUser();
         user.setUsername("username");
 
-        when(userRepository.findByUsername("username")).thenReturn(user);
+        when(userRepository.findByUsername(any())).thenReturn(user);
         when(userRepository.save(any())).thenReturn(user);
 
         AppUserDto updatedUser = userService.updateUser(updatedUserDto);
@@ -76,6 +77,7 @@ public class AppUserServiceTest {
         assertEquals(185.0, updatedUser.getHeight());
         assertEquals("Mesomorph", updatedUser.getBodyType());
         assertEquals("GainWeight", updatedUser.getObjective());
+        assertEquals("Male", updatedUser.getGender());
         verify(userRepository, times(1)).save(user);
     }
 
