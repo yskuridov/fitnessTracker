@@ -2,27 +2,27 @@ import axios from "axios";
 
 class FoodService {
 
-    async getNutrientsByFoodName(name) {
-        var options = {
-            'method': 'POST',
-            'url': 'https://trackapi.nutritionix.com/v2/natural/nutrients',
-            'headers': {
-                'Content-Type': 'application/json',
-                'x-app-id': 'fb03788f',
-                'x-app-key': 'b442d8f0b4a8e1dc727704a5750925bf'
-            },
-            data: {
-                query: name
+    async getFoodByName(name) {
+        const options = {
+            method: 'GET',
+            url: 'https://edamam-food-and-grocery-database.p.rapidapi.com/api/food-database/v2/parser',
+            params: { ingr: name },
+            headers: {
+                'X-RapidAPI-Key': 'a8a8b23bcbmsh3b1927f529dc77ep18a3edjsn0798847578bf',
+                'X-RapidAPI-Host': 'edamam-food-and-grocery-database.p.rapidapi.com'
             }
         };
+
         try {
             const response = await axios.request(options);
             console.log(response.data);
-            return response.data;
+            return response.data.parsed;
         } catch (error) {
             console.error(error);
         }
     }
+
+
 }
 
 export default new FoodService();

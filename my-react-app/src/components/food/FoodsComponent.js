@@ -15,7 +15,7 @@ function FoodsComponent() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setResults(await FoodService.getNutrientsByFoodName(text))
+        setResults(await FoodService.getFoodByName(text))
         console.log(results)
         setSearchWasMade(true)
         setText('')
@@ -41,10 +41,12 @@ function FoodsComponent() {
                     <div className="row justify-content-around">
                         {results.map((result) => (
                             <FoodComponent
-                                key={result.tag_id}
-                                id={result.tag_id}
-                                name={result.food_name}
-                                image={result.photo.thumb}
+                                key={result.food.foodId}
+                                id={result.food.foodId}
+                                name={result.food.label}
+                                category={result.food.category}
+                                nutrients={result.food.nutrients}
+                                image={result.food.image}
                             />
                         ))}
                     </div>
