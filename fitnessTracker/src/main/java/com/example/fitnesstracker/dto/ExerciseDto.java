@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,6 +16,9 @@ public class ExerciseDto {
     private Long id;
     private String name;
     private String targetMuscle;
+    private String imageUrl;
+    private List<String> instructions;
+
 
     public ExerciseDto(Exercise exercise) {
         this.id = exercise.getId();

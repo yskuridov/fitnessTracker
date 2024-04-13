@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 
 @Entity
 @Data
@@ -18,6 +20,11 @@ public class Exercise {
     private Long id;
     private String name;
     private Muscle targetMuscle;
+    private String imageUrl;
+    @ElementCollection
+    @CollectionTable(name = "exercise_instructions", joinColumns = @JoinColumn(name = "exercise_id"))
+    private List<String> instructions;
+
 
     public enum Muscle{
         back,

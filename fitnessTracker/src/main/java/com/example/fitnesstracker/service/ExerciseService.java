@@ -51,7 +51,7 @@ public class ExerciseService {
     @Transactional
     public ExerciseDto createExercise(ExerciseDto dto){
         if(exerciseRepository.existsByName(dto.getName())) return new ExerciseDto(exerciseRepository.findByName(dto.getName()));
-        Exercise exercise = Exercise.builder().name(dto.getName()).targetMuscle(Exercise.Muscle.valueOf(dto.getTargetMuscle())).build();
+        Exercise exercise = Exercise.builder().name(dto.getName()).instructions(dto.getInstructions()).imageUrl(dto.getImageUrl()).targetMuscle(Exercise.Muscle.valueOf(dto.getTargetMuscle())).build();
         return new ExerciseDto(exerciseRepository.save(exercise));
     }
 
