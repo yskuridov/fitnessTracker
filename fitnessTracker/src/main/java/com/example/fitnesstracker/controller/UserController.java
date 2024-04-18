@@ -1,7 +1,7 @@
 package com.example.fitnesstracker.controller;
 
 import com.example.fitnesstracker.dto.AppUserDto;
-import com.example.fitnesstracker.dto.LoginDto;
+import com.example.fitnesstracker.dto.auth.LoginDto;
 import com.example.fitnesstracker.service.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,15 +1,13 @@
 package com.example.fitnesstracker.controller;
 
-import com.example.fitnesstracker.dto.DailyExerciseDto;
-import com.example.fitnesstracker.dto.ExerciseDto;
+import com.example.fitnesstracker.dto.exercise.DailyExerciseDto;
+import com.example.fitnesstracker.dto.exercise.ExerciseDto;
 import com.example.fitnesstracker.service.ExerciseService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController

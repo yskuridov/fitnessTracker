@@ -1,7 +1,7 @@
 package com.example.fitnesstracker.service;
 
 import com.example.fitnesstracker.dto.AppUserDto;
-import com.example.fitnesstracker.dto.LoginDto;
+import com.example.fitnesstracker.dto.auth.LoginDto;
 import com.example.fitnesstracker.models.user.AppUser;
 import com.example.fitnesstracker.repository.AppUserRepository;
 import jakarta.transaction.Transactional;

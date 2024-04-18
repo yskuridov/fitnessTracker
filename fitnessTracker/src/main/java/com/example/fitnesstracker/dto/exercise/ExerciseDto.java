@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.dto;
+package com.example.fitnesstracker.dto.exercise;
 
 import com.example.fitnesstracker.models.exercise.Exercise;
 import jakarta.annotation.Nullable;
@@ -23,6 +23,8 @@ public class ExerciseDto {
     public ExerciseDto(Exercise exercise) {
         this.id = exercise.getId();
         this.name = exercise.getName();
+        this.imageUrl = exercise.getImageUrl();
         this.targetMuscle = exercise.getTargetMuscle().toString();
+        this.instructions = exercise.getInstructions();
     }
 }

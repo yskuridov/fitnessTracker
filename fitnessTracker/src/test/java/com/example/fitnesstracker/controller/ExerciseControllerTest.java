@@ -1,12 +1,11 @@
 package com.example.fitnesstracker.controller;
 
-import com.example.fitnesstracker.dto.DailyExerciseDto;
-import com.example.fitnesstracker.dto.ExerciseDto;
+import com.example.fitnesstracker.dto.exercise.DailyExerciseDto;
+import com.example.fitnesstracker.dto.exercise.ExerciseDto;
 import com.example.fitnesstracker.models.DailySummary;
 import com.example.fitnesstracker.models.exercise.DailyExercise;
 import com.example.fitnesstracker.models.exercise.Exercise;
 import com.example.fitnesstracker.service.ExerciseService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.mockito.ArgumentMatchers.any;

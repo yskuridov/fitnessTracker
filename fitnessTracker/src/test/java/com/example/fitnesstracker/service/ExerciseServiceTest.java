@@ -1,8 +1,7 @@
 package com.example.fitnesstracker.service;
 
-import com.example.fitnesstracker.dto.DailyExerciseDto;
-import com.example.fitnesstracker.dto.DailySummaryDto;
-import com.example.fitnesstracker.dto.ExerciseDto;
+import com.example.fitnesstracker.dto.exercise.DailyExerciseDto;
+import com.example.fitnesstracker.dto.exercise.ExerciseDto;
 import com.example.fitnesstracker.models.DailySummary;
 import com.example.fitnesstracker.models.exercise.DailyExercise;
 import com.example.fitnesstracker.models.exercise.Exercise;
@@ -19,7 +18,6 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;

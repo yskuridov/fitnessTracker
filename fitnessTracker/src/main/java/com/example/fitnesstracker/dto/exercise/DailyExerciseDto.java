@@ -1,5 +1,6 @@
-package com.example.fitnesstracker.dto;
+package com.example.fitnesstracker.dto.exercise;
 
+import com.example.fitnesstracker.dto.DailySummaryDto;
 import com.example.fitnesstracker.models.exercise.DailyExercise;
 import lombok.AllArgsConstructor;
 import lombok.Data;

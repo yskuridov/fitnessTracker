@@ -1,4 +1,4 @@
-package com.example.fitnesstracker.dto;
+package com.example.fitnesstracker.dto.auth;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
