@@ -1,6 +1,7 @@
 package com.example.fitnesstracker.models;
 
 import com.example.fitnesstracker.models.exercise.DailyExercise;
+import com.example.fitnesstracker.models.nutrition.DailyMeal;
 import com.example.fitnesstracker.models.user.AppUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -25,6 +26,8 @@ public class DailySummary {
     private LocalDate date;
     @OneToMany(mappedBy = "dailySummary", cascade = CascadeType.ALL)
     private List<DailyExercise> exercises;
+    @OneToMany(mappedBy = "dailySummary", cascade = CascadeType.ALL)
+    private List<DailyMeal> meals;
     //private List<DailyMeal> meals;
     //private List<Meal> meals;
 }

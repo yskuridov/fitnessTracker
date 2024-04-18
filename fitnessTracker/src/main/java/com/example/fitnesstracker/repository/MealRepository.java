@@ -1,4 +1,9 @@
 package com.example.fitnesstracker.repository;
 
-public interface MealRepository {
+import com.example.fitnesstracker.models.nutrition.Meal;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MealRepository extends JpaRepository<Meal, Long> {
+    Meal findByName(String name);
+    boolean existsByName(String name);
 }

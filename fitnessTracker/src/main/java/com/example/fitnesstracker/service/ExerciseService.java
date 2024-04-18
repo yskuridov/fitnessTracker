@@ -43,8 +43,8 @@ public class ExerciseService {
 
     private void createIfInexistent(DailyExerciseDto dto){
         DailySummary summary = dailySummaryRepository.findByUser_UsernameAndDate(dto.getDailySummaryDto().getUsername(), LocalDate.parse(dto.getDailySummaryDto().getDate()));
-        Optional<Exercise> exercise = exerciseRepository.findById(dto.getExerciseDto().getId());
-        if(exercise.isEmpty()) createExercise(dto.getExerciseDto());
+        Exercise exercise = exerciseRepository.findByName(dto.getExerciseDto().getName());
+        if(exercise == null) createExercise(dto.getExerciseDto());
         if(summary == null) dailySummaryService.createDailySummary(dto.getDailySummaryDto());
     }
 
