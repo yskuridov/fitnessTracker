@@ -25,4 +25,4 @@ function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, inst
     );
 }
 
-export default ExerciseComponent;
+export default DailyExerciseComponent;

@@ -41,12 +41,13 @@ function FoodsComponent() {
                     <div className="row justify-content-around">
                         {results.map((result) => (
                             <FoodComponent
-                                key={result.food.foodId}
-                                id={result.food.foodId}
-                                name={result.food.label}
-                                category={result.food.category}
-                                nutrients={result.food.nutrients}
-                                image={result.food.image}
+                                key={result.id}
+                                id={result.id}
+                                name={result.name}
+                                ingredients={result.ingredients}
+                                nutrients={result.nutrientsPerServing}
+                                image={result.mainImage}
+                                servingWeight={result.servingWeight}
                             />
                         ))}
                     </div>

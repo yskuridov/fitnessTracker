@@ -3,20 +3,46 @@ import axios from "axios";
 class FoodService {
 
     async getFoodByName(name) {
+        const query = `query{
+            searchRecipeByNameOrIngredient(query: "${name}"){
+                onPlan{
+                    id,
+                    name,
+                    mainImage,
+                    ingredients{
+                        name
+                    },
+                    nutrientsPerServing{
+                        calories,
+                        calcium,
+                        sodium,
+                        protein,
+                        fat,
+                        carbs,
+                        cholesterol,
+                        iron,
+                        fiber
+                    },
+                    servingWeight,
+                }
+            }
+        }`
         const options = {
-            method: 'GET',
-            url: 'https://edamam-food-and-grocery-database.p.rapidapi.com/api/food-database/v2/parser',
-            params: { ingr: name },
+            method: 'POST',
+            url: 'https://production.suggestic.com/graphql',
             headers: {
-                'X-RapidAPI-Key': 'a8a8b23bcbmsh3b1927f529dc77ep18a3edjsn0798847578bf',
-                'X-RapidAPI-Host': 'edamam-food-and-grocery-database.p.rapidapi.com'
+                'sg-user': '99d8c770-7570-4f26-a3a5-53818c81533d',
+                'Authorization': 'Token c366c044b4f60b298cc002d92115a964c9dea255'
+            },
+            data: {
+                query: query
             }
         };
 
         try {
             const response = await axios.request(options);
             console.log(response.data);
-            return response.data.parsed;
+            return response.data.data.searchRecipeByNameOrIngredient.onPlan;
         } catch (error) {
             console.error(error);
         }
