@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Tab from 'react-bootstrap/Tab';
 import DailySummaryService from '../service/DailySummaryService';
 import { useUser } from '../provider/UserProvider';
+import ScrollbarComponent from './scrollbar/ScrollbarComponent';
 
 function DashboardComponent() {
     const [summaries, setSummaries] = useState([]);
@@ -47,8 +48,7 @@ function DashboardComponent() {
                     <Tab.Content className='text-light'>
                         {summaries.map(summary => (
                             <Tab.Pane key={summary.date} eventKey={summary.date}>
-                                <h2>{summary.date}</h2>
-                                <p>{summary.username}</p>
+                                <ScrollbarComponent username={loggedInUser} date={summary.date} />
                             </Tab.Pane>
                         ))}
                     </Tab.Content>

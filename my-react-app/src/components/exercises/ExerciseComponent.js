@@ -26,14 +26,14 @@ function ExerciseComponent({ id, name, image, targetMuscle, equipment, instructi
         console.log(date)
         console.log("CREATED")
         console.log(loggedInUser)
-        console.log(ExerciseService.postDailyExercise({"dailySummaryDto":{"username": loggedInUser, "date": date}, "exerciseDto":{"id": id, "name": name, "targetMuscle": targetMuscle}}))
+        console.log(ExerciseService.postDailyExercise({ "dailySummaryDto": { "username": loggedInUser, "date": date }, "exerciseDto": { "id": id, "name": name, "targetMuscle": targetMuscle, "imageUrl": image, "instructions": instructions } }))
     }
 
-    function capitalizeFirstLetter(string){
+    function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
-    function formatDate(string){
+    function formatDate(string) {
         return string.toISOString().slice(0, -14)
     }
 
@@ -69,7 +69,13 @@ function ExerciseComponent({ id, name, image, targetMuscle, equipment, instructi
                                 <h5 className="modal-title text-success mx-auto">Instructions</h5>
                             </div>
                             <div className="modal-body">
-                                <h5 className="modal-title">{capitalizeFirstLetter(name)}</h5>
+                                <img
+                                    src={image}
+                                    className="card-img m-auto border border-dark border-2 p-3"
+                                    alt="Product image"
+                                    style={{ height: '150px', width: '150px' }}
+                                />
+                                <h4 className="modal-title mt-3 mb-2">{capitalizeFirstLetter(name)}</h4>
                                 <ol>
                                     {instructions.map((instruction, index) => (
                                         <li className="m-3 text-start" key={index}>{`${instruction}`}</li>
@@ -92,7 +98,7 @@ function ExerciseComponent({ id, name, image, targetMuscle, equipment, instructi
                             </div>
                             <div className="modal-body">
                                 <p>Veuillez choisir la journée à laquelle vous voulez ajouter cet exercice</p>
-                                <Calendar onChange={setDate} value={date} className="bg-secondary text-light p-3" defaultView='month' maxDate={new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)} minDate={new Date(new Date().setHours(0, 0, 0, 0))} showNavigation={false}/>
+                                <Calendar onChange={setDate} value={date} className="bg-secondary text-light p-3" defaultView='month' maxDate={new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)} minDate={new Date(new Date().setHours(0, 0, 0, 0))} showNavigation={false} />
                                 <p className="mt-3 text-secondary">Date choisie: {formatDate(date)}</p>
                                 <button onClick={() => createDailyExercise(formatDate(date))} className="btn btn-success btn-sm border border-dark border-2">Confirmer l'ajout</button>
                                 <p class="mt-3 mb-0 text-success">*Si un plan n'existe pas pour la journée choisie, il sera créé</p>
