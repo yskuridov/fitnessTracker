@@ -1,6 +1,8 @@
 import axios from "axios";
 
+const POST_DAILY_MEAL = "http://localhost:8081/dailyMeal";
 class FoodService {
+
 
     async getFoodByName(name) {
         const query = `query{
@@ -46,6 +48,15 @@ class FoodService {
         } catch (error) {
             console.error(error);
         }
+    }
+
+    async getDailyMealsByDateAndUsername(username, date){
+        return await axios.get("http://localhost:8081/dailyMeal/" + username, {params: {date: date}}).then((response) => {return response.data});
+    }
+
+    async postDailyMeal(dailyMeal) {
+        console.log(dailyMeal)
+        return await axios.post(POST_DAILY_MEAL, dailyMeal).then((response) => { return response.data });
     }
 
 

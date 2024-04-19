@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import DailyExerciseComponent from '../dailysummary/DailyExerciseComponent';
 import ExerciseService from '../../service/ExerciseService';
+import FoodService from '../../service/FoodService';
 
 function ScrollbarComponent({ username, date }) {
     const [scrollPosition, setScrollPosition] = useState(0);
     const [dailyExercises, setDailyExercises] = useState([]);
+    const [dailyMeals, setDailyMeals] = useState([]);
+    const [data, setData] = useState([]);
     const containerRef = useRef();
 
     useEffect(() => {
@@ -12,11 +15,18 @@ function ScrollbarComponent({ username, date }) {
             const fetchedExercises = await ExerciseService.getDailyExercisesByDateAndUsername(username, date);
             setDailyExercises(fetchedExercises);
         }
+        async function fetchMeals() {
+            const fetchedMeals = await FoodService.getDailyMealsByDateAndUsername(username, date);
+            setDailyMeals(fetchedMeals);
+        }
         fetchData();
+        fetchMeals();
     }, []);
 
     useEffect(() => {
         console.log(dailyExercises);
+        setData([...dailyExercises, ...dailyMeals]);
+
     }, [dailyExercises]);
 
     const handleScroll = (scrollAmount) => {
@@ -32,7 +42,7 @@ function ScrollbarComponent({ username, date }) {
     };
 
     return (
-        dailyExercises.length > 0 ? (
+        data.length > 0 ? (
             <div className='container' style={{ position: 'relative', overflow: 'hidden' }}>
                 <div style={{ display: 'flex', overflowX: 'auto', width: '100%', scrollbarWidth: 'none' }} ref={containerRef}>
                 <button 
@@ -42,8 +52,8 @@ function ScrollbarComponent({ username, date }) {
                 >
                     ←
                 </button>
-                    {dailyExercises.map((item, index) => (
-                        item.exerciseDto.targetMuscle ? (
+                    {data.map((item, index) => (
+                        item.exerciseDto ? (
                             <DailyExerciseComponent 
                                 key={index} 
                                 id={item.exerciseDto.id} 

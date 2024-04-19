@@ -1,11 +1,12 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useUser } from '../../provider/UserProvider';
 import Calendar from 'react-calendar';
+import FoodService from '../../service/FoodService';
 
 function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState('ingredients');
     const [date, setDate] = useState(new Date());
     const { loggedInUser } = useUser();
 
@@ -17,19 +18,28 @@ function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight 
         setIsAddModalOpen(!isAddModalOpen)
     }
 
+    const toggleTab = (tab) => {
+        setActiveTab(tab);
+    };
+
     const onAddBtnClick = () => {
         toggleAddModal();
     };
-
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
     function formatDate(string) {
-        return string.toISOString().slice(0, -14)
+        return string.toISOString().slice(0, -14);
     }
 
+    const createDailyMeal = (date) => {
+        console.log(date)
+        console.log("CREATED")
+        console.log(loggedInUser)
+        console.log(FoodService.postDailyMeal({ "dailySummaryDto": { "username": loggedInUser, "date": date }, "mealDto": {"id": 1, "name": name, "ingredients": ingredients.map(ingredient => ingredient.name), "image": image, "calories": nutrients.calories, "servingPortion": servingWeight, "protein": nutrients.protein, "carbs": nutrients.carbs, "fat": nutrients.fat, "fiber": nutrients.fiber, "calcium": nutrients.calcium, "sodium": nutrients.sodium, "cholesterol": nutrients.cholesterol} }))
+    }
 
     return (
         <div className='col-3 p-2'>
@@ -41,10 +51,10 @@ function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight 
                     onClick={toggleModal}
                     style={{ height: '200px', objectFit: 'cover' }}
                 />
-                <div class="card-body mt-4 mb-0">
-                    <h6 class="card-title text-success">{capitalizeFirstLetter(name)}</h6>
+                <div className="card-body mt-4 mb-0">
+                    <h6 className="card-title text-success">{capitalizeFirstLetter(name)}</h6>
                 </div>
-                <div class="card-body mt-0">
+                <div className="card-body mt-0">
                     <button onClick={onAddBtnClick} className="btn btn-success btn-sm border border-dark border-2">
                         Ajouter au plan du jour
                     </button>
@@ -55,17 +65,43 @@ function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight 
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title text-success mx-auto">Données nutritionnelles</h5>
+                                <ul className="nav nav-tabs">
+                                    <li className="nav-item">
+                                        <button className={`nav-link ${activeTab === 'ingredients' ? 'active' : ''}`} onClick={() => toggleTab('ingredients')}>Ingrédients</button>
+                                    </li>
+                                    <li className="nav-item">
+                                        <button className={`nav-link ${activeTab === 'nutrients' ? 'active' : ''}`} onClick={() => toggleTab('nutrients')}>Nutriments</button>
+                                    </li>
+                                </ul>
+                                <button type="button" className="btn-close" aria-label="Close" onClick={toggleModal}></button>
                             </div>
                             <div className="modal-body">
-                                <h5 className="modal-title mb-4">{capitalizeFirstLetter(name)}</h5>
-                                <ol className="list-unstyled text-start">
-                                    <li className="m-3">Calories: {nutrients.ENERC_KCAL}kcal / portion</li>
-                                    <li className="m-3">Glucides: {nutrients.CHOCDF}g / portion</li>
-                                    <li className='m-3'>Protéines: {nutrients.PROCNT}g / portion</li>
-                                    <li className='m-3'>Gras: {nutrients.FAT}g / portion</li>
-                                    <li className='m-3'>Fibres: {nutrients.FIBTG}g / portion</li>
-                                </ol>
+                                {activeTab === 'ingredients' && (
+                                    <div>
+                                        <h5 className="modal-title mb-4">{capitalizeFirstLetter(name)}</h5>
+                                        <ul className="list-unstyled text-start">
+                                            {ingredients.map((ingredient, index) => (
+                                                <li key={index} className="m-3">- {ingredient.name}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+                                {activeTab === 'nutrients' && (
+                                    <div>
+                                        <h6 className="text-success">Portion: {servingWeight.toFixed(2)} g</h6>
+                                        <ul className="list-unstyled text-start">
+                                            <li className="m-3">Calories: {nutrients.calories.toFixed(2)} kcal / portion</li>
+                                            <li className="m-3">Glucides: {nutrients.carbs.toFixed(2)} g / portion</li>
+                                            <li className='m-3'>Protéines: {nutrients.protein.toFixed(2)} g / portion</li>
+                                            <li className='m-3'>Gras: {nutrients.fat.toFixed(2)} g / portion</li>
+                                            <li className='m-3'>Fibres: {nutrients.fiber.toFixed(2)} g / portion</li>
+                                            <li className='m-3'>Calcium: {nutrients.calcium.toFixed(2)} mg / portion</li>
+                                            <li className='m-3'>Fer: {nutrients.iron.toFixed(2)} mg / portion</li>
+                                            <li className='m-3'>Sodium: {nutrients.sodium.toFixed(2)} mg / portion</li>
+                                            <li className='m-3'>Cholésterol: {nutrients.cholesterol.toFixed(2)} mg / portion</li>
+                                        </ul>
+                                    </div>
+                                )}
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" onClick={toggleModal}>Fermer</button>
@@ -74,7 +110,7 @@ function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight 
                     </div>
                 </div>
             )}
-            {isAddModalOpen && (
+              {isAddModalOpen && (
                 <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(222, 222, 222, 0.8)' }}>
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
@@ -85,7 +121,7 @@ function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight 
                                 <p>Veuillez choisir la journée à laquelle vous voulez ajouter ce produit</p>
                                 <Calendar onChange={setDate} value={date} className="bg-secondary text-light p-3" defaultView='month' maxDate={new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)} minDate={new Date(new Date().setHours(0, 0, 0, 0))} showNavigation={false} />
                                 <p className="mt-3 text-secondary">Date choisie: {formatDate(date)}</p>
-                                <button type="button" className="btn btn-success btn-sm border border-dark border-2">Confirmer l'ajout</button>
+                                <button type="button" onClick={() => createDailyMeal(formatDate(date))} className="btn btn-success btn-sm border border-dark border-2">Confirmer l'ajout</button>
                                 <p class="mt-3 mb-0 text-success">*Si un plan n'existe pas pour la journée choisie, il sera créé</p>
                             </div>
                             <div className="modal-footer">
