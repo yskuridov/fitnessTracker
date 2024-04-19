@@ -58,7 +58,7 @@ public class MealService {
         return new MealDto(mealRepository.save(meal));
     }
 
-    public List<DailyMealDto> getDailyExercisesByUsernameAndDate(String username, String date){
+    public List<DailyMealDto> getDailyMealsByUsernameAndDate(String username, String date){
         List<DailyMeal> dailyMeals = dailyMealRepository.findAllByDailySummary_User_UsernameAndDailySummary_Date(username, LocalDate.parse(date));
         List<DailyMealDto> dtos = new ArrayList<>();
         for(DailyMeal d : dailyMeals) dtos.add(new DailyMealDto(d));
