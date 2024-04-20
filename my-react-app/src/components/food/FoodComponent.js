@@ -3,7 +3,7 @@ import { useUser } from '../../provider/UserProvider';
 import Calendar from 'react-calendar';
 import FoodService from '../../service/FoodService';
 
-function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight }) {
+function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight, instructions }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('ingredients');
@@ -35,10 +35,7 @@ function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight 
     }
 
     const createDailyMeal = (date) => {
-        console.log(date)
-        console.log("CREATED")
-        console.log(loggedInUser)
-        console.log(FoodService.postDailyMeal({ "dailySummaryDto": { "username": loggedInUser, "date": date }, "mealDto": {"id": 1, "name": name, "ingredients": ingredients.map(ingredient => ingredient.name), "image": image, "calories": nutrients.calories, "servingPortion": servingWeight, "protein": nutrients.protein, "carbs": nutrients.carbs, "fat": nutrients.fat, "fiber": nutrients.fiber, "calcium": nutrients.calcium, "sodium": nutrients.sodium, "cholesterol": nutrients.cholesterol} }))
+        console.log(FoodService.postDailyMeal({ "dailySummaryDto": { "username": loggedInUser.username, "date": date }, "mealDto": {"id": 1, "name": name, "instructions": instructions, "ingredients": ingredients.map(ingredient => ingredient.name), "image": image, "calories": nutrients.calories, "servingPortion": servingWeight, "protein": nutrients.protein, "carbs": nutrients.carbs, "fat": nutrients.fat, "fiber": nutrients.fiber, "calcium": nutrients.calcium, "sodium": nutrients.sodium, "cholesterol": nutrients.cholesterol} }))
     }
 
     return (
@@ -72,6 +69,9 @@ function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight 
                                     <li className="nav-item">
                                         <button className={`nav-link ${activeTab === 'nutrients' ? 'active' : ''}`} onClick={() => toggleTab('nutrients')}>Nutriments</button>
                                     </li>
+                                    <li className="nav-item">
+                                        <button className={`nav-link ${activeTab === 'instructions' ? 'active' : ''}`} onClick={() => toggleTab('instructions')}>Instructions de cuisson</button>
+                                    </li>
                                 </ul>
                                 <button type="button" className="btn-close" aria-label="Close" onClick={toggleModal}></button>
                             </div>
@@ -86,19 +86,29 @@ function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight 
                                         </ul>
                                     </div>
                                 )}
+                                {activeTab === 'instructions' && (
+                                    <div>
+                                        <h5 className="modal-title mb-4">{capitalizeFirstLetter(name)}</h5>
+                                        <ol>
+                                            {instructions.map((instruction, index) => (
+                                                <li key={index} className="m-3 text-start">{`${instruction}`}</li>
+                                            ))}
+                                        </ol>
+                                    </div>
+                                )}
                                 {activeTab === 'nutrients' && (
                                     <div>
-                                        <h6 className="text-success">Portion: {servingWeight.toFixed(2)} g</h6>
+                                        <h6 className="text-success">Portion: {servingWeight.toFixed(0)} g</h6>
                                         <ul className="list-unstyled text-start">
-                                            <li className="m-3">Calories: {nutrients.calories.toFixed(2)} kcal / portion</li>
-                                            <li className="m-3">Glucides: {nutrients.carbs.toFixed(2)} g / portion</li>
-                                            <li className='m-3'>Protéines: {nutrients.protein.toFixed(2)} g / portion</li>
-                                            <li className='m-3'>Gras: {nutrients.fat.toFixed(2)} g / portion</li>
-                                            <li className='m-3'>Fibres: {nutrients.fiber.toFixed(2)} g / portion</li>
-                                            <li className='m-3'>Calcium: {nutrients.calcium.toFixed(2)} mg / portion</li>
-                                            <li className='m-3'>Fer: {nutrients.iron.toFixed(2)} mg / portion</li>
-                                            <li className='m-3'>Sodium: {nutrients.sodium.toFixed(2)} mg / portion</li>
-                                            <li className='m-3'>Cholésterol: {nutrients.cholesterol.toFixed(2)} mg / portion</li>
+                                            <li className="m-3">Calories: {nutrients.calories.toFixed(0)} kcal / portion</li>
+                                            <li className="m-3">Glucides: {nutrients.carbs.toFixed(0)} g / portion</li>
+                                            <li className='m-3'>Protéines: {nutrients.protein.toFixed(0)} g / portion</li>
+                                            <li className='m-3'>Gras: {nutrients.fat.toFixed(0)} g / portion</li>
+                                            <li className='m-3'>Fibres: {nutrients.fiber.toFixed(0)} g / portion</li>
+                                            <li className='m-3'>Calcium: {nutrients.calcium.toFixed(0)} mg / portion</li>
+                                            <li className='m-3'>Fer: {nutrients.iron.toFixed(0)} mg / portion</li>
+                                            <li className='m-3'>Sodium: {nutrients.sodium.toFixed(0)} mg / portion</li>
+                                            <li className='m-3'>Cholésterol: {nutrients.cholesterol.toFixed(0)} mg / portion</li>
                                         </ul>
                                     </div>
                                 )}

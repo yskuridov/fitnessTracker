@@ -23,10 +23,7 @@ function ExerciseComponent({ id, name, image, targetMuscle, equipment, instructi
     };
 
     const createDailyExercise = (date) => {
-        console.log(date)
-        console.log("CREATED")
-        console.log(loggedInUser)
-        console.log(ExerciseService.postDailyExercise({ "dailySummaryDto": { "username": loggedInUser, "date": date }, "exerciseDto": { "id": id, "name": name, "targetMuscle": targetMuscle, "imageUrl": image, "instructions": instructions } }))
+        console.log(ExerciseService.postDailyExercise({ "dailySummaryDto": { "username": loggedInUser.username, "date": date }, "exerciseDto": { "id": id, "name": name, "targetMuscle": targetMuscle, "imageUrl": image, "instructions": instructions } }))
     }
 
     function capitalizeFirstLetter(string) {

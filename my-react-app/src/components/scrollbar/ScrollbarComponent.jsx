@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import DailyExerciseComponent from '../dailysummary/DailyExerciseComponent';
+import DailyExerciseComponent from '../exercises/DailyExerciseComponent';
 import ExerciseService from '../../service/ExerciseService';
 import FoodService from '../../service/FoodService';
 
@@ -24,10 +24,8 @@ function ScrollbarComponent({ username, date }) {
     }, []);
 
     useEffect(() => {
-        console.log(dailyExercises);
         setData([...dailyExercises, ...dailyMeals]);
-
-    }, [dailyExercises]);
+    }, [dailyExercises, dailyMeals]);
 
     const handleScroll = (scrollAmount) => {
         const containerWidth = containerRef.current.clientWidth;
@@ -44,7 +42,30 @@ function ScrollbarComponent({ username, date }) {
     return (
         data.length > 0 ? (
             <div className='container' style={{ position: 'relative', overflow: 'hidden' }}>
-                <div style={{ display: 'flex', overflowX: 'auto', width: '100%', scrollbarWidth: 'none' }} ref={containerRef}>
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}}>
+                <h3 className='text-start text-success'>Exercises</h3>
+                    <div style={{ display: 'flex', overflowX: 'auto', width: '100%', scrollbarWidth: 'none' }} ref={containerRef}>
+                        {dailyExercises.map((exercise, index) => (
+                             <DailyExerciseComponent 
+                             key={index} 
+                             id={exercise.exerciseDto.id} 
+                             name={exercise.exerciseDto.name} 
+                             image={exercise.exerciseDto.imageUrl} 
+                             targetMuscle={exercise.exerciseDto.targetMuscle} 
+                             instructions={exercise.exerciseDto.instructions}
+                         />
+                        ))}
+                    </div>
+                    <h3 className='text-start text-success'>Repas</h3>
+                    <div style={{ display: 'flex', overflowX: 'auto', width: '100%', scrollbarWidth: 'none' }} ref={containerRef}>
+                        {dailyMeals.map((meal, index) => (
+                            <div key={index}>
+                                This is a recipe
+                                {console.log(meal)}
+                            </div>
+                        ))}
+                    </div>
+                </div>
                 <button 
                     className="scroll-button scroll-button-left" 
                     onClick={() => handleScroll(-50)} 
@@ -52,31 +73,13 @@ function ScrollbarComponent({ username, date }) {
                 >
                     ←
                 </button>
-                    {data.map((item, index) => (
-                        item.exerciseDto ? (
-                            <DailyExerciseComponent 
-                                key={index} 
-                                id={item.exerciseDto.id} 
-                                name={item.exerciseDto.name} 
-                                image={item.exerciseDto.imageUrl} 
-                                targetMuscle={item.exerciseDto.targetMuscle} 
-                                instructions={item.exerciseDto.instructions}
-                            />
-                        ) : (
-                            <div key={index}>
-                                This is a recipe
-                                {console.log(item)}
-                            </div>   
-                        )
-                    ))}
-                    <button 
+                <button 
                     className="scroll-button scroll-button-right" 
                     onClick={() => handleScroll(150)} 
                     style={scrollButtonStyle}
                 >
                     →
                 </button>
-                </div>
             </div>
         ) : (<div>lul</div>)
     );

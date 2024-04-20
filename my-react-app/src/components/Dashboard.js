@@ -6,6 +6,7 @@ import Tab from 'react-bootstrap/Tab';
 import DailySummaryService from '../service/DailySummaryService';
 import { useUser } from '../provider/UserProvider';
 import ScrollbarComponent from './scrollbar/ScrollbarComponent';
+import NutritionComponent from './dailysummary/NutritionComponent';
 
 function DashboardComponent() {
     const [summaries, setSummaries] = useState([]);
@@ -13,7 +14,7 @@ function DashboardComponent() {
 
     async function fetchData() {
         if (loggedInUser) {
-            const fetchedSummaries = await DailySummaryService.getSummaries(loggedInUser);
+            const fetchedSummaries = await DailySummaryService.getSummaries(loggedInUser.username);
             setSummaries(fetchedSummaries);
         }
     }
@@ -48,7 +49,14 @@ function DashboardComponent() {
                     <Tab.Content className='text-light'>
                         {summaries.map(summary => (
                             <Tab.Pane key={summary.date} eventKey={summary.date}>
-                                <ScrollbarComponent username={loggedInUser} date={summary.date} />
+                                <div className='row'>
+                                <div className='col-8'>
+                                <ScrollbarComponent username={loggedInUser.username} date={summary.date} />
+                                </div>
+                                <div className='col border border-success border-left border-top-0'>
+                                <h3 className='text-center text-success'>Analyse</h3>
+                                </div>
+                                </div>
                             </Tab.Pane>
                         ))}
                     </Tab.Content>

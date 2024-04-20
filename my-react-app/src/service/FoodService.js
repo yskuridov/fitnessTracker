@@ -14,6 +14,7 @@ class FoodService {
                     ingredients{
                         name
                     },
+                    instructions,
                     nutrientsPerServing{
                         calories,
                         calcium,

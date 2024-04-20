@@ -27,7 +27,7 @@ const LoginForm = () => {
         if (validateUsername() && validatePassword()) {
             const response = await UserService.login({"username" : username, "password": password});
             if(response != null){
-                setLoggedInUser(response.username)
+                setLoggedInUser(response)
                 console.log("ONSUBMIT" + loggedInUser)
             }
         }

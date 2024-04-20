@@ -1,12 +1,8 @@
 package com.example.fitnesstracker.service;
 
-import com.example.fitnesstracker.dto.exercise.DailyExerciseDto;
-import com.example.fitnesstracker.dto.exercise.ExerciseDto;
 import com.example.fitnesstracker.dto.nutrition.DailyMealDto;
 import com.example.fitnesstracker.dto.nutrition.MealDto;
 import com.example.fitnesstracker.models.DailySummary;
-import com.example.fitnesstracker.models.exercise.DailyExercise;
-import com.example.fitnesstracker.models.exercise.Exercise;
 import com.example.fitnesstracker.models.nutrition.DailyMeal;
 import com.example.fitnesstracker.models.nutrition.Meal;
 import com.example.fitnesstracker.repository.DailyMealRepository;
@@ -19,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MealService {
@@ -44,6 +39,7 @@ public class MealService {
         return new DailyMealDto(dailyMeal);
     }
 
+    @Transactional
     private void createIfInexistent(DailyMealDto dto){
         DailySummary summary = dailySummaryRepository.findByUser_UsernameAndDate(dto.getDailySummaryDto().getUsername(), LocalDate.parse(dto.getDailySummaryDto().getDate()));
         Meal meal = mealRepository.findByName(dto.getMealDto().getName());
@@ -54,7 +50,7 @@ public class MealService {
     @Transactional
     public MealDto createMeal(MealDto dto){
         if(mealRepository.existsByName(dto.getName())) return new MealDto(mealRepository.findByName(dto.getName()));
-        Meal meal = Meal.builder().name(dto.getName()).ingredients(dto.getIngredients()).image(dto.getImage()).servingPortion(dto.getServingPortion()).calories(dto.getCalories()).protein(dto.getProtein()).carbs(dto.getCarbs()).fat(dto.getFat()).fiber(dto.getFiber()).calcium(dto.getCalcium()).sodium(dto.getSodium()).cholesterol(dto.getCholesterol()).build();
+        Meal meal = Meal.builder().name(dto.getName()).instructions(dto.getInstructions()).ingredients(dto.getIngredients()).image(dto.getImage()).servingPortion(dto.getServingPortion()).calories(dto.getCalories()).protein(dto.getProtein()).carbs(dto.getCarbs()).fat(dto.getFat()).fiber(dto.getFiber()).calcium(dto.getCalcium()).sodium(dto.getSodium()).cholesterol(dto.getCholesterol()).build();
         return new MealDto(mealRepository.save(meal));
     }
 

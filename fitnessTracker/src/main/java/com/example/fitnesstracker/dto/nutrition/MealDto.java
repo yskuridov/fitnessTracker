@@ -17,6 +17,7 @@ public class MealDto {
     private String name;
     private String image;
     private List<String> ingredients;
+    private List<String> instructions;
     private double servingPortion;
     private double calories;
     private double protein;

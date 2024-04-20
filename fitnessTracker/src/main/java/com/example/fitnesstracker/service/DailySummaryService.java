@@ -27,6 +27,7 @@ public class DailySummaryService {
         summary.setDate(LocalDate.parse(dto.getDate()));
         summary.setId(1L);
         summary.setExercises(new ArrayList<>());
+        summary.setMeals(new ArrayList<>());
 
         dailySummaryRepository.save(summary);
 

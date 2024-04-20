@@ -20,6 +20,9 @@ public class Meal {
     private String name;
     private String image;
     @ElementCollection
+    @CollectionTable(name = "meal instructions", joinColumns = @JoinColumn(name = "meal_id"))
+    private List<String> instructions;
+    @ElementCollection
     @CollectionTable(name = "meal_ingredients", joinColumns = @JoinColumn(name = "meal_id"))
     private List<String> ingredients;
     private double calories;

@@ -48,6 +48,7 @@ function FoodsComponent() {
                                 nutrients={result.nutrientsPerServing}
                                 image={result.mainImage}
                                 servingWeight={result.servingWeight}
+                                instructions={result.instructions}
                             />
                         ))}
                     </div>

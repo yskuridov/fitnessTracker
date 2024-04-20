@@ -8,6 +8,7 @@ function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, inst
     };
 
     function capitalizeFirstLetter(string) {
+        if(string === undefined) return string;
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
@@ -18,15 +19,12 @@ function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, inst
                     src={image}
                     className="card-img-top m-auto"
                     alt="Product image"
-                    style={{ height: '100px', width: '100px', cursor: 'pointer' }}
+                    style={{ height: '130px', width: '130px', cursor: 'pointer' }}
                     onClick={toggleModal}
                 />
                 <div className="card-body">
-                    <h6 className="card-title text-success">{capitalizeFirstLetter(name)}</h6>
+                    <h6 className="card-title text-success mb-0 mt-4 text-center">{capitalizeFirstLetter(name)}</h6>
                 </div>
-                <ul className="list-group list-group-flush bg-secondary text-start">
-                    <li className="list-group-item">Muscle ciblé: {targetMuscle}</li>
-                </ul>
             </div>
             {isModalOpen && (
                 <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(222, 222, 222, 0.8)' }}>
@@ -42,10 +40,10 @@ function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, inst
                                     alt="Product image"
                                     style={{ height: '150px', width: '150px' }}
                                 />
-                                <h4 className="modal-title mt-3 mb-2">{capitalizeFirstLetter(name)}</h4>
+                                <h4 className="modal-title mt-3 mb-2 text-dark">{capitalizeFirstLetter(name)}</h4>
                                 <ol>
                                     {instructions.map((instruction, index) => (
-                                        <li className="m-3 text-start" key={index}>{`${instruction}`}</li>
+                                        <li className="m-3 text-start text-dark" key={index}>{`${instruction}`}</li>
                                     ))}
                                 </ol>
                             </div>
