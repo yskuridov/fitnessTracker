@@ -13,13 +13,13 @@ function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, inst
     };
 
     return (
-        <div className='col-sm-6 col-md-4 col-lg-3 mb-4 m-1'>
+        <div className='col-sm-8 col-md-6 col-lg-4 mb-4 m-1'>
             <div className="card h-100 border border-success border-3">
                 <img
                     src={image}
                     className="card-img-top m-auto p-1"
                     alt="Product image"
-                    style={{ height: '130px', width: '130px', cursor: 'pointer' }}
+                    style={{ height: '150px', width: '150px', cursor: 'pointer' }}
                     onClick={toggleModal}
                 />
                 <div className="card-body bg-dark border-success border-top border-2">

@@ -67,13 +67,13 @@ function ScrollbarComponent({ username, date }) {
                     <div className='mx-auto my-auto'>
                             <button
                                 className="m-1 border border-success text-light bg-dark"
-                                onClick={() => handleExerciseScroll(-50)}
+                                onClick={() => handleExerciseScroll(-300)}
                             >
                                 ←
                             </button>
                             <button
                                 className="m-1 border border-success text-light bg-dark"
-                                onClick={() => handleExerciseScroll(150)}
+                                onClick={() => handleExerciseScroll(300)}
                             >
                                 →
                             </button>
@@ -87,17 +87,19 @@ function ScrollbarComponent({ username, date }) {
                     <div className='mx-auto my-auto'>
                             <button
                                 className="m-1 border border-success text-light bg-dark"
-                                onClick={() => handleMealScroll(-50)}
+                                onClick={() => handleMealScroll(-300)}
                             >
                                 ←
                             </button>
                             <button
                                 className="m-1 border border-success text-light bg-dark"
-                                onClick={() => handleMealScroll(150)}
+                                onClick={() => handleMealScroll(300)}
                             >
                                 →
                             </button>
                         </div>
+                    <p className='text fs-6 text-warning fw-light fst-italic mt-5 '>*Une heure d'entraînement musculaire brûle en moyenne de 300 à 400 calories.</p>
+                    <p className='text fs-6 text-warning fw-light fst-italic'>3 exercices choisis équivalent à une heure d'exercice dans le calcul calorique.</p>
                 </div>
             </div>
         ) : (<div>lul</div>)
