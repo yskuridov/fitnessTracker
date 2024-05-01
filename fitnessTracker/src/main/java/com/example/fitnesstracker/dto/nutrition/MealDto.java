@@ -39,9 +39,9 @@ public class MealDto {
         this.carbs = meal.getCarbs();
         this.fat = meal.getFat();
         this.fiber = meal.getFiber();
-        this.calories = meal.getCalcium();
+        this.calcium = meal.getCalcium();
         this.sodium = meal.getSodium();
         this.cholesterol = meal.getCholesterol();
-        this.calcium = meal.getCalcium();
+        this.instructions = meal.getInstructions();
     }
 }

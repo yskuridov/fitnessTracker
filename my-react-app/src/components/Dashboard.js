@@ -6,7 +6,7 @@ import Tab from 'react-bootstrap/Tab';
 import DailySummaryService from '../service/DailySummaryService';
 import { useUser } from '../provider/UserProvider';
 import ScrollbarComponent from './scrollbar/ScrollbarComponent';
-import NutritionComponent from './dailysummary/NutritionComponent';
+import NutritionTableComponent from './analysis/NutritionTableComponent';
 
 function DashboardComponent() {
     const [summaries, setSummaries] = useState([]);
@@ -55,6 +55,7 @@ function DashboardComponent() {
                                 </div>
                                 <div className='col border border-success border-left border-top-0'>
                                 <h3 className='text-center text-success'>Analyse</h3>
+                                <NutritionTableComponent />
                                 </div>
                                 </div>
                             </Tab.Pane>

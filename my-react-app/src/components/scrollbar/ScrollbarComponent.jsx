@@ -2,14 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import DailyExerciseComponent from '../exercises/DailyExerciseComponent';
 import ExerciseService from '../../service/ExerciseService';
 import FoodService from '../../service/FoodService';
+import DailyMealComponent from '../food/DailyMealComponent';
 
 function ScrollbarComponent({ username, date }) {
-    const [scrollPosition, setScrollPosition] = useState(0);
+    const [exerciseScrollPosition, setExerciseScrollPosition] = useState(0);
+    const [mealScrollPosition, setMealScrollPosition] = useState(0);
     const [dailyExercises, setDailyExercises] = useState([]);
     const [dailyMeals, setDailyMeals] = useState([]);
-    const [data, setData] = useState([]);
-    const containerRef = useRef();
-
+    const exerciseContainerRef = useRef();
+    const mealContainerRef = useRef();
+    
     useEffect(() => {
         async function fetchData() {
             const fetchedExercises = await ExerciseService.getDailyExercisesByDateAndUsername(username, date);
@@ -23,79 +25,83 @@ function ScrollbarComponent({ username, date }) {
         fetchMeals();
     }, []);
 
-    useEffect(() => {
-        setData([...dailyExercises, ...dailyMeals]);
-    }, [dailyExercises, dailyMeals]);
-
-    const handleScroll = (scrollAmount) => {
-        const containerWidth = containerRef.current.clientWidth;
-        const contentWidth = containerRef.current.scrollWidth;
+    const handleExerciseScroll = (scrollAmount) => {
+        const containerWidth = exerciseContainerRef.current.clientWidth;
+        const contentWidth = exerciseContainerRef.current.scrollWidth;
         const maxScroll = contentWidth - containerWidth;
-        
-        const newScrollPosition = scrollPosition + scrollAmount;
+        const newScrollPosition = exerciseScrollPosition + scrollAmount;
 
         const clampedScrollPosition = Math.min(maxScroll, Math.max(0, newScrollPosition));
-        setScrollPosition(clampedScrollPosition);
-        containerRef.current.scrollLeft = clampedScrollPosition;
+        setExerciseScrollPosition(clampedScrollPosition);
+        exerciseContainerRef.current.scrollLeft = clampedScrollPosition;
     };
 
+    const handleMealScroll = (scrollAmount) => {
+        const containerWidth = mealContainerRef.current.clientWidth;
+        const contentWidth = mealContainerRef.current.scrollWidth;
+        const maxScroll = contentWidth - containerWidth;
+        const newScrollPosition = mealScrollPosition + scrollAmount;
+
+        const clampedScrollPosition = Math.min(maxScroll, Math.max(0, newScrollPosition));
+        setMealScrollPosition(clampedScrollPosition);
+        mealContainerRef.current.scrollLeft = clampedScrollPosition;
+    }
+
     return (
-        data.length > 0 ? (
+        dailyExercises.length > 0 || dailyMeals.length > 0 ? (
             <div className='container' style={{ position: 'relative', overflow: 'hidden' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', width: '100%'}}>
-                <h3 className='text-start text-success'>Exercises</h3>
-                    <div style={{ display: 'flex', overflowX: 'auto', width: '100%', scrollbarWidth: 'none' }} ref={containerRef}>
+                <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+                    <h3 className='text-start text-success'>Exercises</h3>
+                    <div style={{ display: 'flex', overflowX: 'auto', width: '100%', scrollbarWidth: 'none' }} ref={exerciseContainerRef}>
                         {dailyExercises.map((exercise, index) => (
-                             <DailyExerciseComponent 
-                             key={index} 
-                             id={exercise.exerciseDto.id} 
-                             name={exercise.exerciseDto.name} 
-                             image={exercise.exerciseDto.imageUrl} 
-                             targetMuscle={exercise.exerciseDto.targetMuscle} 
-                             instructions={exercise.exerciseDto.instructions}
-                         />
+                            <DailyExerciseComponent
+                                key={index}
+                                id={exercise.exerciseDto.id}
+                                name={exercise.exerciseDto.name}
+                                image={exercise.exerciseDto.imageUrl}
+                                targetMuscle={exercise.exerciseDto.targetMuscle}
+                                instructions={exercise.exerciseDto.instructions}
+                            />
                         ))}
                     </div>
+                    <div className='mx-auto my-auto'>
+                            <button
+                                className="m-1 border border-success text-light bg-dark"
+                                onClick={() => handleExerciseScroll(-50)}
+                            >
+                                ←
+                            </button>
+                            <button
+                                className="m-1 border border-success text-light bg-dark"
+                                onClick={() => handleExerciseScroll(150)}
+                            >
+                                →
+                            </button>
+                        </div>
                     <h3 className='text-start text-success'>Repas</h3>
-                    <div style={{ display: 'flex', overflowX: 'auto', width: '100%', scrollbarWidth: 'none' }} ref={containerRef}>
+                    <div style={{ display: 'flex', overflowX: 'auto', width: '100%', scrollbarWidth: 'none' }} ref={mealContainerRef}>
                         {dailyMeals.map((meal, index) => (
-                            <div key={index}>
-                                This is a recipe
-                                {console.log(meal)}
-                            </div>
+                            <DailyMealComponent key={index} id={meal.mealDto.id} name={meal.mealDto.name} ingredients={meal.mealDto.ingredients} nutrients={{'calories': meal.mealDto.calories, 'protein': meal.mealDto.protein, 'carbs': meal.mealDto.carbs, 'fat': meal.mealDto.fat, 'fiber': meal.mealDto.fiber, 'calcium': meal.mealDto.calcium, 'sodium': meal.mealDto.sodium, 'cholesterol': meal.mealDto.cholesterol}} image={meal.mealDto.image} servingWeight={meal.mealDto.servingPortion} instructions={meal.mealDto.instructions} />
                         ))}
                     </div>
+                    <div className='mx-auto my-auto'>
+                            <button
+                                className="m-1 border border-success text-light bg-dark"
+                                onClick={() => handleMealScroll(-50)}
+                            >
+                                ←
+                            </button>
+                            <button
+                                className="m-1 border border-success text-light bg-dark"
+                                onClick={() => handleMealScroll(150)}
+                            >
+                                →
+                            </button>
+                        </div>
                 </div>
-                <button 
-                    className="scroll-button scroll-button-left" 
-                    onClick={() => handleScroll(-50)} 
-                    style={scrollButtonStyle}
-                >
-                    ←
-                </button>
-                <button 
-                    className="scroll-button scroll-button-right" 
-                    onClick={() => handleScroll(150)} 
-                    style={scrollButtonStyle}
-                >
-                    →
-                </button>
             </div>
         ) : (<div>lul</div>)
     );
 }
-
-const scrollButtonStyle = {
-    position: 'fixed',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    width: '20px', 
-    height: '40px', 
-    backgroundColor: '#ccc',
-    border: 'none',
-    cursor: 'pointer',
-    opacity: '0.7',
-    padding: '2px'
-};
 
 export default ScrollbarComponent;

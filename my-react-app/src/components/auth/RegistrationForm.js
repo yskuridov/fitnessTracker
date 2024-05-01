@@ -13,6 +13,7 @@ const RegistrationForm = () => {
     const [bodyType, setBodyType] = useState('');
     const [goal, setGoal] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [activeLevel, setActiveLevel] = useState('1');
 
 
     const usernameRef = useRef(null);

@@ -56,7 +56,6 @@ class FoodService {
     }
 
     async postDailyMeal(dailyMeal) {
-        console.log(dailyMeal)
         return await axios.post(POST_DAILY_MEAL, dailyMeal).then((response) => { return response.data });
     }
 
