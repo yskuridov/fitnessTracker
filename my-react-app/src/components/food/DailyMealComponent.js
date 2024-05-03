@@ -14,8 +14,8 @@ function DailyMealComponent({ id, name, image, ingredients, nutrients, servingWe
 
 
     return (
-        <div className='col-sm-8 col-md-6 col-lg-4 mb-4 m-1'>
-            <div className="card h-100 border border-success border-3">
+        <div className='col-sm-8 col-md-6 col-lg-4 mb-4 m-1 shadow-lg'>
+            <div className="card h-100 border border-success border-3 ">
             <img
                 className="w-100 h-100"
                 alt="Product image"

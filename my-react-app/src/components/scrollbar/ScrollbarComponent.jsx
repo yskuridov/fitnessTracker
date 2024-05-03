@@ -66,13 +66,13 @@ function ScrollbarComponent({ username, date }) {
                     </div>
                     <div className='mx-auto my-auto'>
                             <button
-                                className="m-1 border border-success text-light bg-dark"
+                                className="m-1 border border-success text-warning bg-dark"
                                 onClick={() => handleExerciseScroll(-300)}
                             >
                                 ←
                             </button>
                             <button
-                                className="m-1 border border-success text-light bg-dark"
+                                className="m-1 border border-success text-warning bg-dark"
                                 onClick={() => handleExerciseScroll(300)}
                             >
                                 →
@@ -86,13 +86,13 @@ function ScrollbarComponent({ username, date }) {
                     </div>
                     <div className='mx-auto my-auto'>
                             <button
-                                className="m-1 border border-success text-light bg-dark"
+                                className="m-1 border border-success text-warning bg-dark"
                                 onClick={() => handleMealScroll(-300)}
                             >
                                 ←
                             </button>
                             <button
-                                className="m-1 border border-success text-light bg-dark"
+                                className="m-1 border border-success text-warning bg-dark"
                                 onClick={() => handleMealScroll(300)}
                             >
                                 →

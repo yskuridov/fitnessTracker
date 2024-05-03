@@ -21,6 +21,8 @@ class FoodService {
                         sodium,
                         protein,
                         fat,
+                        sugar,
+                        transFat,
                         carbs,
                         cholesterol,
                         iron,

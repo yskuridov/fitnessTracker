@@ -35,7 +35,7 @@ function FoodComponent({ id, name, image, ingredients, nutrients, servingWeight,
     }
 
     const createDailyMeal = (date) => {
-        console.log(FoodService.postDailyMeal({ "dailySummaryDto": { "username": loggedInUser.username, "date": date }, "mealDto": {"id": 1, "name": name, "instructions": instructions, "ingredients": ingredients.map(ingredient => ingredient.name), "image": image, "calories": nutrients.calories, "servingPortion": servingWeight, "protein": nutrients.protein, "carbs": nutrients.carbs, "fat": nutrients.fat, "fiber": nutrients.fiber, "calcium": nutrients.calcium, "sodium": nutrients.sodium, "cholesterol": nutrients.cholesterol} }))
+        console.log(FoodService.postDailyMeal({ "dailySummaryDto": { "username": loggedInUser.username, "date": date }, "mealDto": {"id": 1, "name": name, "instructions": instructions, "ingredients": ingredients.map(ingredient => ingredient.name), "image": image, "calories": nutrients.calories, "servingPortion": servingWeight, "protein": nutrients.protein, "carbs": nutrients.carbs, "fat": nutrients.fat, "fiber": nutrients.fiber, "calcium": nutrients.calcium, "sodium": nutrients.sodium, "cholesterol": nutrients.cholesterol, 'sugar': nutrients.sugar, 'transFat': nutrients.transFat} }))
     }
 
     return (
