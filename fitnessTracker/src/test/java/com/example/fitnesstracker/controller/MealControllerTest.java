@@ -1,2 +1,4 @@
-package com.example.fitnesstracker.controller;public class MealControllerTest {
+package com.example.fitnesstracker.controller;
+
+public class MealControllerTest {
 }

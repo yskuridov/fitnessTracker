@@ -23,17 +23,24 @@ public class MealDto {
     private double protein;
     private double carbs;
     private double fat;
+    private double transFat;
+    private double sugar;
     private double fiber;
     private double calcium;
     private double sodium;
     private double cholesterol;
+
+    private double iron;
 
     public MealDto(Meal meal){
         this.id = meal.getId();
         this.name = meal.getName();
         this.image = meal.getImage();
         this.ingredients = meal.getIngredients();
+        this.transFat = meal.getTransFat();
+        this.sugar = meal.getSugar();
         this.calories = meal.getCalories();
+        this.iron = meal.getIron();
         this.servingPortion = meal.getServingPortion();
         this.protein = meal.getProtein();
         this.carbs = meal.getCarbs();

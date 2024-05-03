@@ -31,4 +31,9 @@ public class ExerciseController {
     public ResponseEntity<List<DailyExerciseDto>> getDailyExercises(@PathVariable String username, @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String date){
         return ResponseEntity.ok(exerciseService.getDailyExercisesByUsernameAndDate(username, date));
     }
+
+    @DeleteMapping("/dailyExercise")
+    public void deleteDailyExercise(@RequestBody DailyExerciseDto dto) {
+        exerciseService.deleteDailyExercise(dto);
+    }
 }

@@ -27,7 +27,10 @@ public class Meal {
     private List<String> ingredients;
     private double calories;
     private double servingPortion;
+    private double transFat;
+    private double sugar;
     private double carbs;
+    private double iron;
     private double protein;
     private double fat;
     private double fiber;

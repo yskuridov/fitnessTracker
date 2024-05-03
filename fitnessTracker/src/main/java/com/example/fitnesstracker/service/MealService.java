@@ -50,7 +50,7 @@ public class MealService {
     @Transactional
     public MealDto createMeal(MealDto dto){
         if(mealRepository.existsByName(dto.getName())) return new MealDto(mealRepository.findByName(dto.getName()));
-        Meal meal = Meal.builder().name(dto.getName()).instructions(dto.getInstructions()).ingredients(dto.getIngredients()).image(dto.getImage()).servingPortion(dto.getServingPortion()).calories(dto.getCalories()).protein(dto.getProtein()).carbs(dto.getCarbs()).fat(dto.getFat()).fiber(dto.getFiber()).calcium(dto.getCalcium()).sodium(dto.getSodium()).cholesterol(dto.getCholesterol()).build();
+        Meal meal = Meal.builder().name(dto.getName()).instructions(dto.getInstructions()).ingredients(dto.getIngredients()).image(dto.getImage()).iron(dto.getIron()).servingPortion(dto.getServingPortion()).calories(dto.getCalories()).protein(dto.getProtein()).carbs(dto.getCarbs()).fat(dto.getFat()).fiber(dto.getFiber()).sugar(dto.getSugar()).transFat(dto.getTransFat()).calcium(dto.getCalcium()).sodium(dto.getSodium()).cholesterol(dto.getCholesterol()).build();
         return new MealDto(mealRepository.save(meal));
     }
 
@@ -59,5 +59,11 @@ public class MealService {
         List<DailyMealDto> dtos = new ArrayList<>();
         for(DailyMeal d : dailyMeals) dtos.add(new DailyMealDto(d));
         return dtos;
+    }
+
+    @Transactional
+    public void deleteDailyMeal(DailyMealDto dto){
+        DailyMeal meal = dailyMealRepository.findByDailySummary_User_UsernameAndDailySummary_DateAndMeal_Name(dto.getDailySummaryDto().getUsername(), LocalDate.parse(dto.getDailySummaryDto().getDate()), dto.getMealDto().getName());
+        dailyMealRepository.delete(meal);
     }
 }

@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface DailyMealRepository extends JpaRepository<DailyMeal, Long> {
     List<DailyMeal> findAllByDailySummary_User_UsernameAndDailySummary_Date(String username, LocalDate date);
+    DailyMeal findByDailySummary_User_UsernameAndDailySummary_DateAndMeal_Name(String username, LocalDate date, String name);
 }

@@ -69,7 +69,7 @@ public class ExerciseServiceTest {
 
         DailyExerciseDto dto = exerciseService.createDailyExercise(new DailyExerciseDto(dailyExercise));
 
-        assertEquals(dailyExercise.getDailySummary().getDate(), dto.getDailySummaryDto().getDate());
+        assertEquals(dailyExercise.getDailySummary().getDate().toString(), dto.getDailySummaryDto().getDate());
         assertEquals(dailyExercise.getExercise().getId(), dto.getExerciseDto().getId());
 
     }

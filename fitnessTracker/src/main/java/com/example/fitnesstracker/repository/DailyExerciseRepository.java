@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface DailyExerciseRepository extends JpaRepository<DailyExercise, Long> {
     List<DailyExercise> findAllByDailySummary_User_UsernameAndDailySummary_Date(String username, LocalDate date);
+    DailyExercise findByDailySummary_User_UsernameAndDailySummary_DateAndExercise_Name(String username, LocalDate date, String title);
 }

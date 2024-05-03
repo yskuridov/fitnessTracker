@@ -62,4 +62,9 @@ public class ExerciseService {
         return dtos;
     }
 
+    @Transactional
+    public void deleteDailyExercise(DailyExerciseDto dto){
+        DailyExercise exercise = dailyExerciseRepository.findByDailySummary_User_UsernameAndDailySummary_DateAndExercise_Name(dto.getDailySummaryDto().getUsername(), LocalDate.parse(dto.getDailySummaryDto().getDate()), dto.getExerciseDto().getName());
+        dailyExerciseRepository.delete(exercise);
+    }
 }
