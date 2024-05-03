@@ -57,6 +57,10 @@ class ExerciseService {
         console.log(date)
         return await axios.get("http://localhost:8081/dailyExercise/" + username, {params: {date: date}}).then((response) => {return response.data});
     }
+
+    async deleteDailyExercise(dto){
+        return await axios.delete("http://localhost:8081/dailyExercise", {data: dto}).then((response) => {return response.data});
+    }
 }
 
 export default new ExerciseService();

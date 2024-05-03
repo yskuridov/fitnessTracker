@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useUser } from '../../provider/UserProvider';
+import FoodService from '../../service/FoodService';
 
 function DailyMealComponent({ id, name, image, ingredients, nutrients, servingWeight, instructions, summaryDate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('ingredients');
+    const { loggedInUser } = useUser();
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
@@ -13,8 +16,8 @@ function DailyMealComponent({ id, name, image, ingredients, nutrients, servingWe
     };
 
     const deleteComponent = () => {
-        
-        console.log(`Deleted component with id ${id}`);
+        const dto = {"dailySummaryDto": {"username": loggedInUser.username, "date": summaryDate}, "mealDto": {"id": 1, "name": name, "instructions": instructions, "ingredients": ingredients.map(ingredient => ingredient.name), "image": image, "calories": nutrients.calories, "servingPortion": servingWeight, "protein": nutrients.protein, "carbs": nutrients.carbs, "fat": nutrients.fat, "fiber": nutrients.fiber, "calcium": nutrients.calcium, "sodium": nutrients.sodium, "cholesterol": nutrients.cholesterol, 'sugar': nutrients.sugar, 'transFat': nutrients.transFat}}
+        FoodService.deleteDailyMeal(dto);
     };
 
     return (

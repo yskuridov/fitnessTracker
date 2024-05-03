@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import ExerciseService from '../../service/ExerciseService';
+import { useUser } from '../../provider/UserProvider';
 
 function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, instructions, secondaryMuscles, summaryDate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const { loggedInUser } = useUser();
+    
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };
@@ -13,7 +16,8 @@ function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, inst
     };
 
     const deleteComponent = () => {
-        console.log(`Deleted component with id ${id}`);
+        const dto = {"dailySummaryDto": {"username": loggedInUser.username, "date": summaryDate}, "exerciseDto": { "id": id, "name": name, "targetMuscle": targetMuscle, "imageUrl": image, "instructions": instructions }}
+        ExerciseService.deleteDailyExercise(dto);
     };
 
 

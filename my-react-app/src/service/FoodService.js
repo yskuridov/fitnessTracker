@@ -61,7 +61,10 @@ class FoodService {
         return await axios.post(POST_DAILY_MEAL, dailyMeal).then((response) => { return response.data });
     }
 
-
+    async deleteDailyMeal(dto){
+        console.log(dto)
+        return await axios.delete("http://localhost:8081/dailyMeal", {data: dto}).then((response) => {return response.data});
+    }
 }
 
 export default new FoodService();
