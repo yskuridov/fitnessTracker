@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function DailyMealComponent({ id, name, image, ingredients, nutrients, servingWeight, instructions }) {
+function DailyMealComponent({ id, name, image, ingredients, nutrients, servingWeight, instructions, summaryDate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('ingredients');
 
@@ -12,19 +12,28 @@ function DailyMealComponent({ id, name, image, ingredients, nutrients, servingWe
         setActiveTab(tab);
     };
 
+    const deleteComponent = () => {
+        
+        console.log(`Deleted component with id ${id}`);
+    };
 
     return (
         <div className='col-sm-8 col-md-6 col-lg-4 mb-4 m-1 shadow-lg'>
             <div className="card h-100 border border-success border-3 ">
-            <img
-                className="w-100 h-100"
-                alt="Product image"
-                style={{ cursor: 'pointer' }}
-                src={image}
-                onClick={toggleModal}
-            />
+                <img
+                    className="w-100 h-100"
+                    alt="Product image"
+                    style={{ cursor: 'pointer' }}
+                    src={image}
+                    onClick={toggleModal}
+                />
                 <div className="card-body mb-0 card-body bg-dark border-success border-top border-2">
                     <h6 className="card-title text-light text-center my-auto">{name}</h6>
+                </div>
+                <div className='card-footer bg-dark'>
+                    <button className="bg-dark w-100 rounded border border-danger text-secondary p-1 px-2 fw-bold" onClick={deleteComponent}>
+                        Supprimer
+                    </button>
                 </div>
             </div>
             {isModalOpen && (

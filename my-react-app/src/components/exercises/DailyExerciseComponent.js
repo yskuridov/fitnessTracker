@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, instructions, secondaryMuscles }) {
+function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, instructions, secondaryMuscles, summaryDate }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
@@ -8,9 +8,14 @@ function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, inst
     };
 
     function capitalizeFirstLetter(string) {
-        if(string === undefined) return string;
+        if (string === undefined) return string;
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
+
+    const deleteComponent = () => {
+        console.log(`Deleted component with id ${id}`);
+    };
+
 
     return (
         <div className='col-sm-8 col-md-6 col-lg-4 mb-4 m-1 shadow-lg'>
@@ -24,6 +29,11 @@ function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, inst
                 />
                 <div className="card-body bg-dark border-success border-top border-2">
                     <h6 className="card-title text-light text-center my-auto">{capitalizeFirstLetter(name)}</h6>
+                </div>
+                <div className='card-footer bg-dark'>
+                    <button className="bg-dark w-100 rounded border border-danger text-secondary p-1 px-2 fw-bold" onClick={deleteComponent}>
+                        Supprimer
+                    </button>
                 </div>
             </div>
             {isModalOpen && (

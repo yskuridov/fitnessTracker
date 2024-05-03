@@ -61,6 +61,7 @@ function ScrollbarComponent({ username, date }) {
                                 image={exercise.exerciseDto.imageUrl}
                                 targetMuscle={exercise.exerciseDto.targetMuscle}
                                 instructions={exercise.exerciseDto.instructions}
+                                summaryDate={date}
                             />
                         ))}
                     </div>
@@ -81,7 +82,7 @@ function ScrollbarComponent({ username, date }) {
                     <h3 className='text-start text-success'>Repas</h3>
                     <div style={{ display: 'flex', overflowX: 'auto', width: '100%', scrollbarWidth: 'none' }} ref={mealContainerRef}>
                         {dailyMeals.map((meal, index) => (
-                            <DailyMealComponent key={index} id={meal.mealDto.id} name={meal.mealDto.name} ingredients={meal.mealDto.ingredients} nutrients={{'calories': meal.mealDto.calories, 'protein': meal.mealDto.protein, 'carbs': meal.mealDto.carbs, 'fat': meal.mealDto.fat, 'fiber': meal.mealDto.fiber, 'calcium': meal.mealDto.calcium, 'sodium': meal.mealDto.sodium, 'cholesterol': meal.mealDto.cholesterol}} image={meal.mealDto.image} servingWeight={meal.mealDto.servingPortion} instructions={meal.mealDto.instructions} />
+                            <DailyMealComponent key={index} id={meal.mealDto.id} name={meal.mealDto.name} ingredients={meal.mealDto.ingredients} nutrients={{'calories': meal.mealDto.calories, 'protein': meal.mealDto.protein, 'carbs': meal.mealDto.carbs, 'fat': meal.mealDto.fat, 'fiber': meal.mealDto.fiber, 'calcium': meal.mealDto.calcium, 'sodium': meal.mealDto.sodium, 'cholesterol': meal.mealDto.cholesterol}} image={meal.mealDto.image} servingWeight={meal.mealDto.servingPortion} instructions={meal.mealDto.instructions} summaryDate={date} />
                         ))}
                     </div>
                     <div className='mx-auto my-auto'>
