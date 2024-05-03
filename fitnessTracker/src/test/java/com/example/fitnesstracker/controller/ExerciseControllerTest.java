@@ -5,6 +5,7 @@ import com.example.fitnesstracker.dto.exercise.ExerciseDto;
 import com.example.fitnesstracker.models.DailySummary;
 import com.example.fitnesstracker.models.exercise.DailyExercise;
 import com.example.fitnesstracker.models.exercise.Exercise;
+import com.example.fitnesstracker.models.user.AppUser;
 import com.example.fitnesstracker.service.ExerciseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -62,6 +63,7 @@ public class ExerciseControllerTest {
         exercise.setTargetMuscle(Exercise.Muscle.arms);
 
         DailySummary summary = new DailySummary();
+        summary.setUser(new AppUser());
         summary.setId(4l);
         summary.setDate(LocalDate.now());
         summary.setExercises(new ArrayList<>());
