@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useUser } from '../../provider/UserProvider';
 import FoodService from '../../service/FoodService';
 
-function DailyMealComponent({ id, name, image, ingredients, nutrients, servingWeight, instructions, summaryDate }) {
+function DailyMealComponent({ id, name, image, ingredients, nutrients, servingWeight, instructions, summaryDate, handleDelete }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('ingredients');
     const { loggedInUser } = useUser();
@@ -18,11 +18,12 @@ function DailyMealComponent({ id, name, image, ingredients, nutrients, servingWe
     const deleteComponent = () => {
         const dto = {"dailySummaryDto": {"username": loggedInUser.username, "date": summaryDate}, "mealDto": {"id": 1, "name": name, "instructions": instructions, "ingredients": ingredients.map(ingredient => ingredient.name), "image": image, "calories": nutrients.calories, "servingPortion": servingWeight, "protein": nutrients.protein, "carbs": nutrients.carbs, "fat": nutrients.fat, "fiber": nutrients.fiber, "calcium": nutrients.calcium, "sodium": nutrients.sodium, "cholesterol": nutrients.cholesterol, 'sugar': nutrients.sugar, 'transFat': nutrients.transFat}}
         FoodService.deleteDailyMeal(dto);
+        handleDelete(dto);
     };
 
     return (
-        <div className='col-sm-8 col-md-6 col-lg-4 mb-4 m-1 shadow-lg'>
-            <div className="card h-100 border border-success border-3 ">
+        <div className='col-sm-8 col-md-6 col-lg-6 mb-4 m-1 shadow-lg'>
+            <div className="card h-100 border border-success border-4">
                 <img
                     className="w-100 h-100"
                     alt="Product image"

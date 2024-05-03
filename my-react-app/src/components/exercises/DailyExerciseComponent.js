@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import ExerciseService from '../../service/ExerciseService';
 import { useUser } from '../../provider/UserProvider';
 
-function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, instructions, secondaryMuscles, summaryDate }) {
+function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, instructions, secondaryMuscles, summaryDate, handleDelete }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { loggedInUser } = useUser();
-    
+
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen);
     };
@@ -18,12 +18,13 @@ function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, inst
     const deleteComponent = () => {
         const dto = {"dailySummaryDto": {"username": loggedInUser.username, "date": summaryDate}, "exerciseDto": { "id": id, "name": name, "targetMuscle": targetMuscle, "imageUrl": image, "instructions": instructions }}
         ExerciseService.deleteDailyExercise(dto);
+        handleDelete(dto);
     };
 
 
     return (
-        <div className='col-sm-8 col-md-6 col-lg-4 mb-4 m-1 shadow-lg'>
-            <div className="card h-100 border border-success border-3">
+        <div className='col-sm-8 col-md-6 col-lg-6 mb-4 m-1 shadow-lg'>
+            <div className="card h-100 border border-success border-4">
                 <img
                     src={image}
                     className="card-img-top m-auto p-1"

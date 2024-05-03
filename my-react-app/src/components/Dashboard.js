@@ -49,15 +49,7 @@ function DashboardComponent() {
                     <Tab.Content className='text-light'>
                         {summaries.map(summary => (
                             <Tab.Pane key={summary.date} eventKey={summary.date}>
-                                <div className='row'>
-                                <div className='col-8'>
                                 <ScrollbarComponent username={loggedInUser.username} date={summary.date} />
-                                </div>
-                                <div className='col border border-success border-left border-top-0'>
-                                <h3 className='text-center text-success'>Analyse</h3>
-                                <NutritionTableComponent />
-                                </div>
-                                </div>
                             </Tab.Pane>
                         ))}
                     </Tab.Content>
