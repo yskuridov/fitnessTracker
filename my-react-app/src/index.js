@@ -10,7 +10,7 @@ import NavbarComponent from './components/NavbarComponent';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <div className='bg-dark'>
+  <div className='bg-dark w-100'>
     <Router>
     <UserProvider>
       <NavbarComponent/>

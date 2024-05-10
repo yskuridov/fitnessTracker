@@ -24,11 +24,11 @@ function FoodsComponent() {
     return (
         <div className="row">
             <Form className="col-10 m-auto p-3 border border-dark bg-dark text-light" onSubmit={handleSubmit}>
-                <h3 className='m-3 mb-5'>Recherche de produits</h3>
+                <h3 className='m-3 mb-5'>Recherche de repas</h3>
                 <input
                     className="col-12 mt-4 border border-3 border-success rounded"
                     size="sm"
-                    placeholder="Nom du produit"
+                    placeholder="Nom du plat"
                     value={text}
                     onChange={handleTextChange}
                     required

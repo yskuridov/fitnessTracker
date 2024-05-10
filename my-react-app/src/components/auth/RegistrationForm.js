@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import UserService from "../../service/UserService";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -13,8 +13,6 @@ const RegistrationForm = () => {
     const [bodyType, setBodyType] = useState('');
     const [goal, setGoal] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [activeLevel, setActiveLevel] = useState('1');
-
 
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
@@ -25,21 +23,24 @@ const RegistrationForm = () => {
     const validUsername = username.match('^[a-zA-Z0-9_]{3,16}$');
     const validPassword = password.match('^(?=.*[A-Z])(.{8,20})$');
 
+    const navigate = useNavigate();
 
     const onSubmit = async (e) => {
-        e.preventDefault()
-        console.log(username)
+        e.preventDefault();
         if (validatePasswords() && validateUsername()) {
-            console.log(await UserService.register({ "username": username, "password": password, "age": age, "gender": gender, "weight": weight, "height": height, "bodyType": bodyType, "objective": goal }));
+            try {
+                await UserService.register({ "username": username, "password": password, "age": age, "gender": gender, "weight": weight, "height": height, "bodyType": bodyType, "objective": goal });
+                navigate('/login')
+            } catch (error) {
+                console.error("Error occurred during registration:", error);
+            }
         }
     }
 
     function validateUsername() {
         let isValid = true;
 
-        if (
-            username.trim() === ''
-        ) {
+        if (username.trim() === '') {
             isValid = false;
             usernameRef.current.innerHTML = '* Veuillez indiquer un nom d\'utilisateur *';
         } else {
@@ -58,10 +59,7 @@ const RegistrationForm = () => {
     function validatePasswords() {
         let isValid = true;
 
-        if (
-            !password ||
-            !confirmPassword
-        ) {
+        if (!password || !confirmPassword) {
             isValid = false;
         }
         if (password.trim() === '') {
@@ -109,7 +107,7 @@ const RegistrationForm = () => {
     return (
         <div>
             <div>
-                <div className="bg-dark text-light">
+                <div className="bg-dark text-light container d-flex justify-content-center align-items-stretch vh-100">
                     <form onSubmit={onSubmit} className="container-md mt-5">
                         <div className="mb-4">
                             <h1 className="mb-0 text-success">Inscription</h1>
@@ -152,6 +150,13 @@ const RegistrationForm = () => {
                         </div>
                         <div className="row mb-3">
                             <div className="col">
+                                <label htmlFor="gender" className="form-label">Sexe</label>
+                                <select className="form-select" id="gender" value={gender} onChange={(e) => setGender(e.target.value)}>
+                                    <option value="Male">Homme</option>
+                                    <option value="Female">Femme</option>
+                                </select>
+                            </div>
+                            <div className="col">
                                 <label htmlFor="bodyType" className="form-label">Type de corps</label>
                                 <select className="form-select" id="bodyType" value={bodyType} onChange={(e) => setBodyType(e.target.value)}>
                                     <option value="">Sélectionnez un type de corps</option>
@@ -173,8 +178,6 @@ const RegistrationForm = () => {
                                 </select>
                             </div>
                         </div>
-
-
                         <button type="submit" className="btn btn-dark border border-secondary text-success btn-lg w-25">S'inscrire</button>
                     </form>
                 </div>
@@ -183,4 +186,4 @@ const RegistrationForm = () => {
     )
 }
 
-export default RegistrationForm
+export default RegistrationForm;

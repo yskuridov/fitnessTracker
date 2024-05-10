@@ -60,11 +60,11 @@ function ScrollbarComponent({ username, date }) {
 
     return (
         dailyExercises.length > 0 || dailyMeals.length > 0 ? (
-            <div className='container' style={{ position: 'relative', overflow: 'hidden' }}>
+            <div className='container-fluid'>
                 <div className='row'>
                     <div className='col-6'>
                         <h3 className='text-start text-success'>Exercises</h3>
-                        <div style={{ display: 'flex', overflowX: 'auto', width: '100%', scrollbarWidth: 'none' }} ref={exerciseContainerRef}>
+                        <div style={{ display: 'flex', overflowX: 'auto', width: '97%', scrollbarWidth: 'none' }} ref={exerciseContainerRef}>
                             {dailyExercises.map((exercise, index) => (
                                 <DailyExerciseComponent
                                     key={index}
@@ -95,7 +95,7 @@ function ScrollbarComponent({ username, date }) {
                             </div>
                         )}
                         <h3 className='text-start text-success'>Repas</h3>
-                        <div style={{ display: 'flex', overflowX: 'auto', width: '100%', scrollbarWidth: 'none' }} ref={mealContainerRef}>
+                        <div style={{ display: 'flex', overflowX: 'auto', width: '97%', scrollbarWidth: 'none' }} ref={mealContainerRef}>
                             {dailyMeals.map((meal, index) => (
                                 <DailyMealComponent 
                                     key={index} 

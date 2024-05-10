@@ -14,12 +14,13 @@ class UserService{
     }
 
     async getNutritionData(user){
+        const genderLowerCase = user.gender.toLowerCase();
         const options = {
             method: 'GET',
             url: 'https://nutrition-calculator.p.rapidapi.com/api/nutrition-info',
             params: {
               measurement_units: 'met',
-              sex: "male",
+              sex: genderLowerCase,
               age_value: user.age,
               age_type: 'yrs',
               cm: user.height,

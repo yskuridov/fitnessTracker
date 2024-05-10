@@ -6,7 +6,6 @@ import Tab from 'react-bootstrap/Tab';
 import DailySummaryService from '../service/DailySummaryService';
 import { useUser } from '../provider/UserProvider';
 import ScrollbarComponent from './scrollbar/ScrollbarComponent';
-import NutritionTableComponent from './analysis/NutritionTableComponent';
 
 function DashboardComponent() {
     const [summaries, setSummaries] = useState([]);
@@ -29,7 +28,7 @@ function DashboardComponent() {
     }
 
     return (
-        <div>
+        <div className='container-fluid vh-100'>
             <h4 className='text-light mb-3 mt-3'>Mes plans des jours</h4>
             <Tab.Container id="left-tabs" defaultActiveKey="first">
             <Row>
