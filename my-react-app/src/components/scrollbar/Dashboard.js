@@ -3,9 +3,9 @@ import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Tab from 'react-bootstrap/Tab';
-import DailySummaryService from '../service/DailySummaryService';
-import { useUser } from '../provider/UserProvider';
-import ScrollbarComponent from './scrollbar/ScrollbarComponent';
+import DailySummaryService from '../../service/DailySummaryService';
+import { useUser } from '../../provider/UserProvider';
+import ScrollbarComponent from './DashboardInterfaceComponent';
 
 function DashboardComponent() {
     const [summaries, setSummaries] = useState([]);

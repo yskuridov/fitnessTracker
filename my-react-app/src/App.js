@@ -3,7 +3,7 @@ import RegistrationForm from './components/auth/RegistrationForm';
 import LoginForm from './components/auth/LoginForm';
 import { Routes, Route } from "react-router-dom";
 import ExercisesComponent from './components/exercises/ExercisesComponent';
-import DashboardComponent from './components/Dashboard';
+import DashboardComponent from './components/scrollbar/Dashboard';
 import FoodsComponent from './components/food/FoodsComponent';
 
 function App() {

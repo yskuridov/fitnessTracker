@@ -6,7 +6,7 @@ import DailyMealComponent from '../food/DailyMealComponent';
 import NutritionTableComponent from '../analysis/NutritionTableComponent';
 import NutritionGoalComponent from '../analysis/NutritionGoalComponent';
 
-function ScrollbarComponent({ username, date }) {
+function DashboardInterfaceComponent({ username, date }) {
     const [exerciseScrollPosition, setExerciseScrollPosition] = useState(0);
     const [mealScrollPosition, setMealScrollPosition] = useState(0);
     const [dailyExercises, setDailyExercises] = useState([]);
@@ -36,6 +36,7 @@ function ScrollbarComponent({ username, date }) {
             setDailyMeals(filteredMeals);
         }
     };
+    
     const handleExerciseScroll = (scrollAmount) => {
         const containerWidth = exerciseContainerRef.current.clientWidth;
         const contentWidth = exerciseContainerRef.current.scrollWidth;
@@ -148,4 +149,4 @@ function ScrollbarComponent({ username, date }) {
     );
 }
 
-export default ScrollbarComponent;
+export default DashboardInterfaceComponent;
