@@ -2,16 +2,13 @@ import React, { useEffect } from 'react';
 import './NutritionStyles.css'
 
 function NutritionTableComponent({ meals, exercises }) {
-
-  useEffect(() => {
-    console.log(meals);
-    console.log(exercises);
-  }, [meals, exercises]);
-
-  
   const totalCalories = meals.reduce((total, meal) => {
     return total + parseFloat(meal.mealDto.calories.toFixed(0));
   }, 0);
+
+  const totalExerciseCalories = exercises.length * 100;
+
+  const finalTotalCalories = totalCalories - totalExerciseCalories;
 
   const totalFat = meals.reduce((total, meal) => {
     return total + parseFloat(meal.mealDto.fat.toFixed(0));
@@ -65,14 +62,13 @@ function NutritionTableComponent({ meals, exercises }) {
             <th colspan="4">
               <br />
               <strong>Calories</strong>
-              <span>{totalCalories}</span>
+              <span>{finalTotalCalories}</span>
             </th>
           </tr>
         </thead>
         <tbody>
           <tr className="daily-value">
             <th colspan="4">
-              <strong>% Valeur quotidienne*</strong>
             </th>
           </tr>
           <tr id="TotFat" className="br">
@@ -80,19 +76,17 @@ function NutritionTableComponent({ meals, exercises }) {
               <strong>Gras Total:  </strong>
               {totalFat} g
             </th>
-            <td><input type="text" />%</td>
           </tr>
           <td>&nbsp;</td>
-            <th colspan="2">
-              Gras trans:  
-              <span> {totalTransFat} g </span></th>
+          <th colspan="2">
+            Gras trans:
+            <span> {totalTransFat} g </span></th>
           <tr>
             <th colspan="3">
               <strong>Cholestérol: </strong>
               {totalCholesterol} mg
             </th>
             <td>
-              <input type="text" />%
             </td>
           </tr>
           <tr>
@@ -101,7 +95,6 @@ function NutritionTableComponent({ meals, exercises }) {
               {totalSodium} mg
             </th>
             <td>
-              <input type="text" />%
             </td>
           </tr>
           <tr>
@@ -110,7 +103,6 @@ function NutritionTableComponent({ meals, exercises }) {
               {totalSugar} g
             </th>
             <td>
-              <input type="text" />%
             </td>
           </tr>
           <tr>
@@ -118,15 +110,12 @@ function NutritionTableComponent({ meals, exercises }) {
               <strong>Glucides:  </strong>
               {totalCarbs} g
             </th>
-            <td><input type="text" />%
-            </td>
           </tr>
           <tr id="fiber">
             <td>&nbsp;</td>
             <th colspan="2">
-              Fibres:  
+              Fibres:
               <span> {totalFiber} g </span></th>
-            <td><input type="text" />%</td>
           </tr>
           <tr>
             <th colspan="3">
@@ -143,22 +132,14 @@ function NutritionTableComponent({ meals, exercises }) {
           <tr id="calcium">
             <th className="label">
               Calcium: {totalCalcium} g</th>
-            <td className="dv"><input type="text" />%
-            </td>
           </tr>
           <tr id="iron">
             <th className="label">
               Fer: {totalIron} mg
             </th>
-            <td>
-              <input type="text" />%
-            </td>
           </tr>
         </tbody>
       </table>
-      <p className="footnote">
-        The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.
-      </p>
     </section>
   );
 }

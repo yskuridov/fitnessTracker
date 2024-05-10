@@ -11,15 +11,7 @@ section {
     padding: 0 5px 0;
     width: 250px;
 }
-.nutrition-facts input {
-    border: 0;
-    width: 25px;
-    background-color: lightblue;
-    text-align: right;
-}
-.nutrition-facts input.cals {
-    width: 100px;
-}
+
 .nutrition-facts h1, .nutrition-facts thead, .nutrition-facts strong {
     font-family: "Arial Black", "Arial Bold", sans-serif;
     letter-spacing: -0.03em;
@@ -67,10 +59,7 @@ section {
 .nutrition-facts table thead td:last-child, .nutrition-facts table tbody td:last-child {
     text-align: right;
 }
-.nutrition-facts table thead .daily-value th, .nutrition-facts table tbody .daily-value th {
-    font-size: 11px;
-    text-align: right;
-}
+
 .nutrition-facts table thead td, .nutrition-facts table thead th {
     border-bottom: solid 4px blue;
     padding-top: 3px;
@@ -109,16 +98,4 @@ section {
 }
 .nutrition-facts table.voluntary-nutrients {
     border-bottom: solid 5px #000;
-}
-.nutrition-facts .footnote {
-    font-size: 9px;
-    height: 4em;
-    margin: 6px 0 -3px;
-    padding-left: 1em;
-    position: relative;
-}
-.nutrition-facts .footnote:before {
-    content: '*';
-    position: absolute;
-    left: 0;
 }

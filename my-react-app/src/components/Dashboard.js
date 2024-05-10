@@ -33,7 +33,7 @@ function DashboardComponent() {
             <h4 className='text-light mb-3 mt-3'>Mes plans des jours</h4>
             <Tab.Container id="left-tabs" defaultActiveKey="first">
             <Row>
-                <Col sm={3}>
+                <Col lg={2}>
                     <Nav variant="pills" className="flex-column">
                         <Nav.Item>
                             <Nav.Link disabled className='text-light'>Date</Nav.Link>
@@ -45,7 +45,7 @@ function DashboardComponent() {
                         ))}
                     </Nav>
                 </Col>
-                <Col sm={9} className='mt-5'>
+                <Col sm={10} className='mt-5'>
                     <Tab.Content className='text-light'>
                         {summaries.map(summary => (
                             <Tab.Pane key={summary.date} eventKey={summary.date}>

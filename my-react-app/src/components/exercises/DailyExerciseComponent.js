@@ -23,7 +23,7 @@ function DailyExerciseComponent({ id, name, image, targetMuscle, equipment, inst
 
 
     return (
-        <div className='col-sm-8 col-md-6 col-lg-6 mb-4 m-1 shadow-lg'>
+        <div className='col-sm-8 col-md-5 col-lg-5 mb-4 m-1 shadow-lg'>
             <div className="card h-100 border border-success border-4">
                 <img
                     src={image}

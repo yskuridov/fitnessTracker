@@ -22,10 +22,12 @@ function DailyMealComponent({ id, name, image, ingredients, nutrients, servingWe
     };
 
     return (
-        <div className='col-sm-8 col-md-6 col-lg-6 mb-4 m-1 shadow-lg'>
+        <div className='col-sm-8 col-md-5 col-lg-5 mb-4 m-1 shadow-lg'>
             <div className="card h-100 border border-success border-4">
                 <img
-                    className="w-100 h-100"
+                    width={200}
+                    height={150}
+                    className='card-img-top m-auto'
                     alt="Product image"
                     style={{ cursor: 'pointer' }}
                     src={image}
@@ -35,7 +37,7 @@ function DailyMealComponent({ id, name, image, ingredients, nutrients, servingWe
                     <h6 className="card-title text-light text-center my-auto">{name}</h6>
                 </div>
                 <div className='card-footer bg-dark'>
-                    <button className="bg-dark w-100 rounded border border-danger text-secondary p-1 px-2 fw-bold" onClick={deleteComponent}>
+                    <button className="bg-dark w-100 p-1 rounded border border-danger text-secondary px-2 fw-bold" onClick={deleteComponent}>
                         Supprimer
                     </button>
                 </div>
